@@ -115,54 +115,67 @@ class Linkedin:
         self.get_jobs_info(ids, n_page)
 
 
+def without_authenthication():
+
+    #Open Driver + Define a specific link, i.e. search
+    raw_page = 'https://www.linkedin.com/jobs/search/?currentJobId=2180215659&f_I=15&f_TPR=r2592000&geoId=92000000&keywords=Key%20Account%20Manager&location=Nel%20mondo%7B0%7D&position=17&pageNum=7'
+    driver = webdriver.Chrome()
+    driver.get(raw_page);
+
+    #Goes to search
+    print('[STATUS] home page'.format(id))
+    text = ''
+    file = 'data.txt'
+    python_button = driver.find_elements_by_xpath("//ul[@class='jobs-search__results-list']")[0]
+    python_button.click()
+    html = driver.find_element_by_tag_name('html')
+
+    #Scroll down to get all offers
+    for i in range(0,7):
+        html.send_keys(Keys.PAGE_DOWN)
+        sleep(5)
+
+    search_box = driver.find_elements_by_class_name("result-card")
+    sleep(2) #Necessary to avoid blocking
+
+    ids = []
+
+    #Get all ids of offers
+    for card in search_box:
+        id = card.get_attribute('data-id')
+        ids.append(id)
+
+    #For each id gets text
+
+    for id in ids:
+
+        try:
+            print('[STATUS] getting id {}'.format(id))
+            sleep(5)
+            page = 'https://www.linkedin.com/jobs/search/?currentJobId={0}&f_I=15&f_TPR=r2592000&geoId=92000000&keywords=Key%20Account%20Manager&location=Nel%20mondo%7B0%7D&position=17&pageNum=7'.format(id)
+            driver.get(page);
+
+            print('[STATUS] see anouncement')
+            sleep(5)
+            python_button = driver.find_elements_by_xpath("//button[@class='show-more-less-html__button show-more-less-html__button--more']")[0]
+            python_button.click()
+
+            print('[STATUS] click see more')
+            raw_text = driver.find_element_by_class_name("show-more-less-html__markup")
+            text += raw_text.text
+
+            print('[STATUS] saving job')
+            sleep(5)
+        except Exception:
+            with open(file, 'a') as f:
+                f.write(text)
+
+    with open(file, 'a') as f:
+        f.write(text)
+
+
 #for i in range(0,5):
-#    lp = Linkedin('ndvega@uc.cl','niko625664')
+#    lp = Linkedin('poner mail','poner password')
 #    lp.iterate_all(i)
 #    sleep(25)
-
-
-raw_page = 'https://www.linkedin.com/jobs/search/?currentJobId=2180215659&f_I=15&f_TPR=r2592000&geoId=92000000&keywords=Key%20Account%20Manager&location=Nel%20mondo%7B0%7D&position=17&pageNum=7'
-driver = webdriver.Chrome()
-driver.get(raw_page);
-print('[STATUS] home page'.format(id))
-text = ''
-file = 'data.txt'
-python_button = driver.find_elements_by_xpath("//ul[@class='jobs-search__results-list']")[0]
-python_button.click()
-
-html = driver.find_element_by_tag_name('html')
-
-for i in range(0,7):
-    html.send_keys(Keys.PAGE_DOWN)
-    sleep(5)
-
-search_box = driver.find_elements_by_class_name("result-card")
-sleep(2)
-
-ids = []
-
-for card in search_box:
-    id = card.get_attribute('data-id')
-    ids.append(id)
-
-for id in ids:
-    try:
-        print('[STATUS] getting id {}'.format(id))
-        sleep(5)
-        page = 'https://www.linkedin.com/jobs/search/?currentJobId={0}&f_I=15&f_TPR=r2592000&geoId=92000000&keywords=Key%20Account%20Manager&location=Nel%20mondo%7B0%7D&position=17&pageNum=7'.format(id)
-        driver.get(page);
-        print('[STATUS] see anouncement')
-        sleep(5)
-        python_button = driver.find_elements_by_xpath("//button[@class='show-more-less-html__button show-more-less-html__button--more']")[0]
-        python_button.click()
-        print('[STATUS] click see more')
-        raw_text = driver.find_element_by_class_name("show-more-less-html__markup")
-        text += raw_text.text
-        print('[STATUS] saving job')
-        sleep(5)
-    except Exception:
-        with open(file, 'a') as f:
-            f.write(text)
-
-with open(file, 'a') as f:
-    f.write(text)
+without_authenthication()
