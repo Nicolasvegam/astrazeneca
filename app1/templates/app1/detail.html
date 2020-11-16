@@ -1,0 +1,7 @@
+<h1>{{ collection.id }}</h1>
+<ul>
+{% for job in collection.job_set.all %}
+    <li>{{ job.id }}</li>
+    <li>{{ job.description }}</li>
+{% endfor %}
+</ul>

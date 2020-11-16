@@ -1,0 +1,15 @@
+
+{% if collections %}
+    <ul>
+    {% for collection in collections %}
+        <li><a href="{% url 'detail' collection.id %}">{{ collection.id }}</a></li>
+        <li>{{ collection.location }}</li>
+        <li>{{ collection.source }}</li>
+        <li>{{ collection.role }}</li>
+        <li>{{ collection.pub_date }}</li>
+
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No jobs are available {{collections}}</p>
+{% endif %}
