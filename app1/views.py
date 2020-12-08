@@ -11,6 +11,18 @@ def index(request):
 def index2(request):
     return render(request, 'app1/index 2.html')
 
+def Navbar(request):
+    return render(request, 'app1/Navbar.html')
+def Topbar(request):
+    return render(request, 'app1/Topbar.html')
+
+def MatrizIdeal(request):
+    return render(request, 'app1/MatrizIdeal.html')
+
+def MatrizComparada(request):
+    return render(request, 'app1/MatrizComparada.html')
+
+    
 def detail(request, collection_id):
 
     #try:
