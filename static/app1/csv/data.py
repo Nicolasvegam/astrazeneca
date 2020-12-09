@@ -58,7 +58,7 @@ Data = [{
 Capacidades = [
     {
         'nombre': 'Conocimiento',
-        'list': ['Conocimiento del Cliente','Conocimiento del entorno','Compliance']
+        'list': ['Conocimiento del Cliente','Conocimiento del Entorno','Compliance']
     },
     {
         'nombre':'Desarrollo Personal',
