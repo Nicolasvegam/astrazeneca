@@ -24,7 +24,7 @@ def MatrizIdeal(request, conocimiento):
 
 def MatrizComparada(request):
     my_var = 'ejemplo estado'
-    context = {'my_var': my_var}
+    context = {'my_var': my_var, 'capacidades':Capacidades}
     return render(request, 'app1/MatrizComparada.html', context)
 
     
