@@ -1,9 +1,11 @@
+
+
 google.charts.load('current', {'packages':['corechart']});
 google.charts.setOnLoadCallback(drawVisualization);
-//import Data from data
 
 const principal= 'Conocimiento'
 var secundaria = 'Conocimiento del Cliente'
+
 const datos = [{
     'id':0,
     'nivel':'Regular',
@@ -58,15 +60,42 @@ const datos = [{
         'list': ['comportamiento 1','comportamiento 2','comportamiento 3','comportamiento 4'],
         'scores': [2,3,2,3]}],
 },
+{
+    'id':0,
+    'nivel':'Regular',
+    'nombre':'Compliance',
+    'padre':'Conocimiento' ,
+    'comportamientos':[{
+        'list': ['comportamiento 1','comportamiento 2','comportamiento 3','comportamiento 4'],
+        'scores': [2,3,1,4]}],
+},
+{
+    'id':0,
+    'nivel':'Basico',
+    'nombre':'Compliance',
+    'padre':'Conocimiento' ,
+    'comportamientos':[{
+        'list': ['comportamiento 1','comportamiento 2','comportamiento 3','comportamiento 4'],
+        'scores': [2,3,1,4]}],
+},
+{
+    'id':0,
+    'nivel':'Experto',
+    'nombre':'Compliance',
+    'padre':'Conocimiento' ,
+    'comportamientos':[{
+        'list': ['comportamiento 1','comportamiento 2','comportamiento 3','comportamiento 4'],
+        'scores': [2,3,1,4]}],
+},
 ]
 
 
 
 
 async function drawVisualization( ) {
-    var cap_name = await document.getElementById("conocimiento").value;
-    //secundaria = cap_name
-    console.log(secundaria)
+    var cap_name = await document.getElementById("capacidad").value;
+    secundaria = cap_name
+    //console.log(cap_name)
     // Para graficar secundarias
     var comportamientos = await datos.filter(d => d.nombre == secundaria)[0].comportamientos[0].list
     var basico = datos.filter(d => d.nombre == secundaria && d.nivel == 'Basico')[0].comportamientos[0].scores
@@ -75,7 +104,7 @@ async function drawVisualization( ) {
 
     comportamientos.unshift('Experticia')
     basico.unshift('Basico')
-    console.log(datos.filter(d => d.nombre == secundaria && d.nivel == 'Basico'))
+    console.log(datos.filter(d => d.nombre == cap_name && d.nivel == 'Basico'))
     regular.unshift('Regular')
     experto.unshift('Experto')
 

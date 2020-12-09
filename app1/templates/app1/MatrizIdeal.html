@@ -40,14 +40,14 @@
                
 
                 <div class="container-fluid">
-                    <input type="text" id="conocimiento" style="display: none" value="{{ conocimiento|safe }}">
+                    <input type="text" id="capacidad" style="display: none" value="{{ capacidad|safe }}">
                     <!-- Area Chart -->
                     <div class="col-xl-10 col-lg-10">
                        <div class="card shadow mb-10">
                         <div
                             class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                         
-                             <h6 class="m-0 font-weight-bold text-primary">{{conocimiento}} : Nivel esperado de comportamientos segun experticia </h6>
+                             <h6 class="m-0 font-weight-bold text-primary">{{capacidad}} : Nivel esperado de comportamientos segun experticia </h6>
                         </div>
 
                            <!-- Card Body -->
@@ -125,7 +125,7 @@
     <script src="{% static "app1/js/demo/chart-area-demo.js" %}"></script>
     <script src="{% static "app1/js/demo/geograph.js" %}"></script> -->
     <script>
-        var capacidad_secuntaria = "{{conocimiento}}";
+        var capacidad_secuntaria = "{{capacidad}}";
     </script>
     <script src="{% static "app1/js/demo/bargraph.js" %}"></script>
     <script src="{% static "app1/js/demo/geograph.js" %}"></script>

@@ -53,6 +53,15 @@ Data = [{
         'list': ['comportamiento 1','comportamiento 2','comportamiento 3','comportamiento 4'],
         'scores': [2,3,2,3]}],
 },
+{
+    'id':0,
+    'nivel':'Regular',
+    'nombre':'Compliance',
+    'padre':'Conocimiento' ,
+    'comportamientos':[{
+        'list': ['comportamiento 1','comportamiento 2','comportamiento 3','comportamiento 4'],
+        'scores': [2,3,1,4]}],
+},
 ]
 
 Capacidades = [

@@ -12,14 +12,18 @@ def index2(request):
     context = {'capacidades':Capacidades}
     return render(request, 'app1/index 2.html',context)
 
+def MercadoExterno(request):
+    context = {'capacidades':Capacidades}
+    return render(request, 'app1/MercadoExterno.html',context)
+
 def Navbar(request):
     context = {'capacidades':Capacidades}
     return render(request, 'app1/Navbar.html',context)
 def Topbar(request):
     return render(request, 'app1/Topbar.html')
 
-def MatrizIdeal(request, conocimiento):
-    context = {'conocimiento':conocimiento,'capacidades':Capacidades}
+def MatrizIdeal(request, capacidad):
+    context = {'capacidad':capacidad,'capacidades':Capacidades}
     return render(request, 'app1/MatrizIdeal.html',context)
 
 def MatrizComparada(request):

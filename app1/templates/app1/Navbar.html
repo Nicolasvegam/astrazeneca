@@ -84,10 +84,10 @@
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        {% for capacidad in capacidades %}
-                        <h6 class="collapse-header">{{capacidad.nombre }}</h6>
-                            {% for item in capacidad.list %}
-                                <a class="collapse-item" href="{% url 'MatrizIdeal' conocimiento=item%}"> {{item}} </a>
+                        {% for capacidad_sec in capacidades %}
+                        <h6 class="collapse-header">{{capacidad_sec.nombre }}</h6>
+                            {% for item in capacidad_sec.list %}
+                                <a class="collapse-item" href="{% url 'MatrizIdeal' capacidad=item%}"> {{item}} </a>
                             {% endfor %}
                         {% endfor %}
                     </div>
@@ -103,7 +103,7 @@
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'index2' %}">
+                <a class="nav-link" href="{% url 'MercadoExterno' %}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Mercado Laboral Externo </span></a>
             </li>

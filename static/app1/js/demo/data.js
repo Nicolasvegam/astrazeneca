@@ -1,5 +1,5 @@
 
-const Data = [{
+let Data = [{
     'id':0,
     'nivel':'Regular',
     'nombre':'Conocimiento del Cliente',
@@ -55,4 +55,4 @@ const Data = [{
 },
 ]
 
-export {Data};
+export default Data;

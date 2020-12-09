@@ -7,8 +7,9 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('index2/', views.index2, name='index2'),
     path('Navbar/', views.Navbar, name='Navbar'),
-    path('MatrizIdeal/<conocimiento>/', views.MatrizIdeal, name='MatrizIdeal'),
+    path('MatrizIdeal/<capacidad>/', views.MatrizIdeal, name='MatrizIdeal'),
     path('MatrizComparada/', views.MatrizComparada, name='MatrizComparada'),
+    path('MercadoExterno/', views.MercadoExterno, name='MercadoExterno'),
 
     # ex: /polls/5/
     path('<int:collection_id>/', views.detail, name='detail'),
