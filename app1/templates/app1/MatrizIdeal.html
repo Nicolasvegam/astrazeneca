@@ -45,7 +45,8 @@
                        <div class="card shadow mb-10">
                         <div
                             class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                             <h6 class="m-0 font-weight-bold text-primary">Nivel esperado de Comportamiento segun experticia </h6>
+                        
+                             <h6 class="m-0 font-weight-bold text-primary">{{conocimiento}} : Nivel esperado de comportamientos segun experticia </h6>
                         </div>
 
                            <!-- Card Body -->
@@ -122,7 +123,9 @@
     <!-- <script src="{% static "app1/js/demo/chart-pie-demo.js" %}"></script>
     <script src="{% static "app1/js/demo/chart-area-demo.js" %}"></script>
     <script src="{% static "app1/js/demo/geograph.js" %}"></script> -->
-    
+    <script>
+        var capacidad_secuntaria = "{{conocimiento}}";
+    </script>
     <script src="{% static "app1/js/demo/bargraph.js" %}"></script>
     <script src="{% static "app1/js/demo/geograph.js" %}"></script>
     <script src="{% static "app1/js/demo/combochart.js" %}"></script>

@@ -84,14 +84,12 @@
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header"> Conocimiento</h6>
-                        <a class="collapse-item" href="{% url 'MatrizIdeal' %}" > Conocimiento del Entorno</a>
-                        <a class="collapse-item" href="register"> Conocimiento del Cliente</a>
-                        <a class="collapse-item" href="forgot-password.html">Compliance</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Desarrollo Personal</h6>
-                        <a class="collapse-item" href="404.html">Liderazgo</a>
-                        <a class="collapse-item" href="blank.html"> Eficacia Interpersonal</a>
+                        {% for capacidad in capacidades %}
+                        <h6 class="collapse-header">{{capacidad.nombre }}</h6>
+                            {% for item in capacidad.list %}
+                                <a class="collapse-item" href="{% url 'MatrizIdeal' conocimiento=item%}"> {{item}} </a>
+                            {% endfor %}
+                        {% endfor %}
                     </div>
                 </div>
             </li>

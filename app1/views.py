@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .models import Job, Collection
-
+from static.app1.csv.data import Data , Capacidades
 
 def index(request):
     collections = Collection.objects.all()
@@ -9,18 +9,23 @@ def index(request):
     return render(request, 'app1/index.html', context)
 
 def index2(request):
-    return render(request, 'app1/index 2.html')
+    context = {'capacidades':Capacidades}
+    return render(request, 'app1/index 2.html',context)
 
 def Navbar(request):
-    return render(request, 'app1/Navbar.html')
+    context = {'capacidades':Capacidades}
+    return render(request, 'app1/Navbar.html',context)
 def Topbar(request):
     return render(request, 'app1/Topbar.html')
 
-def MatrizIdeal(request):
-    return render(request, 'app1/MatrizIdeal.html')
+def MatrizIdeal(request, conocimiento):
+    context = {'conocimiento':conocimiento,'capacidades':Capacidades}
+    return render(request, 'app1/MatrizIdeal.html',context)
 
 def MatrizComparada(request):
-    return render(request, 'app1/MatrizComparada.html')
+    my_var = 'ejemplo estado'
+    context = {'my_var': my_var}
+    return render(request, 'app1/MatrizComparada.html', context)
 
     
 def detail(request, collection_id):

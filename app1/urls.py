@@ -7,7 +7,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('index2/', views.index2, name='index2'),
     path('Navbar/', views.Navbar, name='Navbar'),
-    path('MatrizIdeal/', views.MatrizIdeal, name='MatrizIdeal'),
+    path('MatrizIdeal/<conocimiento>/', views.MatrizIdeal, name='MatrizIdeal'),
     path('MatrizComparada/', views.MatrizComparada, name='MatrizComparada'),
 
     # ex: /polls/5/

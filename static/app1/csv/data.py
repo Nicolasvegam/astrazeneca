@@ -1,5 +1,5 @@
 
-const Data = [{
+Data = [{
     'id':0,
     'nivel':'Regular',
     'nombre':'Conocimiento del Cliente',
@@ -55,4 +55,14 @@ const Data = [{
 },
 ]
 
-export {Data};
+Capacidades = [
+    {
+        'nombre': 'Conocimiento',
+        'list': ['Conocimiento del Cliente','Conocimiento del entorno','Compliance']
+    },
+    {
+        'nombre':'Desarrollo Personal',
+        'list': [ 'Liderazgo', 'Comunicacion']
+     }
+     ]
+    

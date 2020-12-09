@@ -87,7 +87,8 @@ var igual= 0;
 var mayor= 0;
 diferencia.map(dif => dif>0?(mayor++):(dif==0?(igual++):(bajo++)))
 //console.log("TOTALES",bajo, igual, mayor)
-
+console.log("MY VAR")
+console.log(my_var)
 
 var birdsCanvas = document.getElementById("birdsChart");
 
