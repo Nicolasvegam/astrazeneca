@@ -51,9 +51,15 @@
                         </div>
 
                            <!-- Card Body -->
-                           <div class="card-body" style="padding-bottom: 250px;">
-                               <div class="chart-area">
-                                   <div id="chart_div2" style="text-align: -webkit-center;" ></div>
+                           <div class="card-body" >
+                             
+                                   <!-- <div id="chart_div2" style="text-align: -webkit-center;" ></div> -->
+                                   <div class="isResizable">
+                                    <div class="chart-container" >
+                                      <canvas id="chart" height= 400px;></canvas>
+                                    </div>
+                                  </div>
+                                    
 
                                </div>
                             <!-- Color System -->
@@ -170,7 +176,8 @@
     </script>
     <script src="{% static "app1/js/demo/bargraph.js" %}"></script>
     <script src="{% static "app1/js/demo/geograph.js" %}"></script>
-    <script src="{% static "app1/js/demo/combochart.js" %}"></script>
+    <script src="{% static "app1/js/demo/Grafico_barras_principal.js" %}"></script>
+    <script src="{% static "app1/js/demo/Grafico_comportamientos.js" %}"></script>
     
     </script>
 

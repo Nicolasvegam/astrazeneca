@@ -37,92 +37,75 @@
                 
 
                 <!-- Capacidad 2: Comportamientos por nivel de experticia  -->
-            
-                <!--Cap2: Nivel de experticia por compartamiento (Todos los niveles y Realidad ) -->
-                <div class="container-fluid">
-                     <!-- Area Chart -->
-                     <div class="col-xl-10 col-lg-10">
-                        <div class="card shadow mb-10">
-                             <div
-                             class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                 <h6 class="m-0 font-weight-bold text-primary">Comportamientos respecto al nivel Regular en Conocimientos</h6>
-                             </div>
-                            <!-- Card Body -->
-                            <div class="card-body" style="padding-bottom: 250px;">
-                 
-                                    
-                                <canvas id="myChart" width="400" height="400"></canvas>
-                                      
+               
 
-                            </div>
- 
-                            </div>
-                            <!-- /.container-fluid -->
-                        </div>
+                <div class="container-fluid">
+                    <input type="text" id="capacidad" style="display: none" value="{{ capacidad|safe }}">
                     <!-- Area Chart -->
                     <div class="col-xl-10 col-lg-10">
                        <div class="card shadow mb-10">
-                            <div
+                        <div
                             class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">Nivel Real comparado con Niveles de Experticia </h6>
-                            </div>
+                        
+                             <h6 class="m-0 font-weight-bold text-primary">{{capacidad}} : Score de Nivel real vs niveles de experticia </h6>
+                        </div>
+
                            <!-- Card Body -->
                            <div class="card-body" style="padding-bottom: 250px;">
                                <div class="chart-area">
-                                   <div id="Cap2_Comparacion" style="text-align: -webkit-center;" ></div>
-                                    
+                                   <div id="chart_div2" style="text-align: -webkit-center;" ></div>
+
                                </div>
+                            <!-- Color System -->
+                            <div class="row">
+                                <div class="col-lg-6 mb-4">
+                                    <div class="card bg-primary text-white shadow">
+                                        <div class="card-body">
+                                            comportamiento 1
+                                            <div class="text-white-50 small">#4e73df</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-4">
+                                    <div class="card bg-warning text-white shadow">
+                                        <div class="card-body">
+                                            comportamiento 3
+                                            <div class="text-white-50 small">#f6c23e</div>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                                <div class="col-lg-6 mb-4">
+                                    <div class="card bg-danger text-white shadow">
+                                        <div class="card-body">
+                                            comportamiento 2
+                                            <div class="text-white-50 small">#e74a3b</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-4">
+                                    <div class="card bg-success text-white shadow">
+                                        <div class="card-body">
+                                            comportamiento 4
+                                            <div class="text-white-50 small">#1cc88a</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                
+                               
+                                
+                           
+                            </div>
                            </div>
 
                            </div>
                            <!-- /.container-fluid -->
                        </div>
-                       <!-- Area Chart -->
-                    <div class="col-xl-10 col-lg-10">
-                        <div class="card shadow mb-10">
-                             <div
-                             class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                 <h6 class="m-0 font-weight-bold text-primary">Prueba botones </h6>
-                             </div>
-                            <!-- Card Body -->
-                            <div class="card-body" style="padding-bottom: 250px;">
-                                <div class="chart-area">
-                                   
-                                    <div id="chart_div"></div>
-                                        <br/>
-                                        <div id="btn-group">
-                                        <button class="button button-blue" id="none">No Format</button>
-                                        <button class="button button-blue" id="scientific">Scientific Notation</button>
-                                        <button class="button button-blue" id="decimal">Decimal</button>
-                                        <button class="button button-blue" id="short">Short</button>
-                                        </div>
-                                
-                                     
-                                </div>
-                            </div>
- 
-                            </div>
-                            <!-- /.container-fluid -->
-                        </div>
-                       
                    </div>
-
-                   <div class="container-fluid">
-                   
-                       
-                   </div>
-                   <!-- <form>
-                    <label for="fname">First name:</label><br>
-                    <input type="text" id="fname" name="fname"><br>
-                    <label for="lname">Last name:</label><br>
-                    <input type="text" id="lname" name="lname">
-                    <input type="submit" value="Submit">
-                  </form> -->
-                    
 
             </div>
             <!-- End of Main Content -->
-        
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
@@ -182,15 +165,14 @@
     <!-- <script src="{% static "app1/js/demo/chart-pie-demo.js" %}"></script>
     <script src="{% static "app1/js/demo/chart-area-demo.js" %}"></script>
     <script src="{% static "app1/js/demo/geograph.js" %}"></script> -->
-    <script src="{% static "app1/js/demo/chart-area-demo.js" %}"></script>
-    <script src="{% static "app1/js/demo/IdealvsReal.js" %}"></script>
-    <script src="{% static "app1/js/demo/Grafico_barras_principal.js" %}"></script>
-    <script src="{% static "app1/js/demo/Rendimiento.js" %}"></script>
-    <script src="{% static "app1/js/demo/Grafico_radar_general.js" %}"></script>
-    <script src="{% static "app1/js/demo/botones.js" %}"></script>
-   
+    <script>
+        var capacidad_secuntaria = "{{capacidad}}";
     </script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="{% static "app1/js/demo/bargraph.js" %}"></script>
+    <script src="{% static "app1/js/demo/geograph.js" %}"></script>
+    <script src="{% static "app1/js/demo/Grafico_barras_principal.js" %}"></script>
+    
+    </script>
 
 </body>
 

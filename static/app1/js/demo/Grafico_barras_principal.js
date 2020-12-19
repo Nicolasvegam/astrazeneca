@@ -144,7 +144,7 @@ async function drawVisualization( ) {
     var data = google.visualization.arrayToDataTable(datos_transpuestos)
 
     var options = {
-        title : secundaria,
+        title : cap_name,
         vAxis: {title: 'Nivel requerido'},
         hAxis: {title: 'Competencias secundarias'},
         seriesType: 'bars',

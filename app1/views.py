@@ -10,11 +10,11 @@ def index(request):
 
 def index2(request):
     context = {'capacidades':Capacidades}
-    return render(request, 'app1/index 2.html',context)
+    return render(request, 'app1/Informacion_General.html',context)
 
 def MercadoExterno(request):
     context = {'capacidades':Capacidades}
-    return render(request, 'app1/MercadoExterno.html',context)
+    return render(request, 'app1/Mercado_Laboral_Externo.html',context)
 
 def Navbar(request):
     context = {'capacidades':Capacidades}
@@ -22,14 +22,17 @@ def Navbar(request):
 def Topbar(request):
     return render(request, 'app1/Topbar.html')
 
-def MatrizIdeal(request, capacidad):
-    context = {'capacidad':capacidad,'capacidades':Capacidades}
-    return render(request, 'app1/MatrizIdeal.html',context)
+def Matriz_Competencia_Principal(request, capacidad,cargo):
+    context = {'capacidad':capacidad,'cargo':cargo,'capacidades':Capacidades}
+    return render(request, 'app1/Matriz_Competencia_Principal.html',context)
 
-def MatrizComparada(request):
-    my_var = 'ejemplo estado'
-    context = {'my_var': my_var, 'capacidades':Capacidades}
-    return render(request, 'app1/MatrizComparada.html', context)
+def Matriz_Competencia_Secundaria(request, capacidad,cargo):
+    context = {'capacidad':capacidad,'cargo':cargo,'capacidades':Capacidades}
+    return render(request, 'app1/Matriz_Competencia_Secundaria.html',context)
+
+def Matriz_Resumen_Cargo(request, cargo):
+    context = {'cargo': cargo, 'capacidades':Capacidades}
+    return render(request, 'app1/Matriz_Resumen_Cargo.html', context)
 
     
 def detail(request, collection_id):
