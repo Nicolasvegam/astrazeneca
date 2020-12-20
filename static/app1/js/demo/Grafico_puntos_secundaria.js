@@ -1,12 +1,31 @@
 // Se obtiene id usuario y datos para filtro especifico
 async function getData(){
+    var datos = [{},{}]
     var cargo = await document.getElementById("cargo").value
     console.log("cargo:",cargo)
     var capacidad = await document.getElementById("capacidad").value
     console.log("capacidad:",capacidad)
+    //------ Calculo de labels y cada data ------
+    ////------Labels-----
+    var comportamientos = datos.filter(d => d.nombre == secundaria)[0].comportamientos[0].list
+    ////-------Data------
+    var fundamental = datos.filter(d => d.nombre == secundaria && d.nivel == 'Basico')[0].comportamientos[0].scores
+    var regular = datos.filter(d => d.nombre == secundaria && d.nivel == 'Regular')[0].comportamientos[0].scores
+    var profesional = datos.filter(d => d.nombre == secundaria && d.nivel == 'Experto')[0].comportamientos[0].scores
+    var real = datos.filter(d => d.nombre == secundaria  && d.id!= 0 )
+    var scores_list = real.map(individuo => ( individuo.comportamientos[0].scores)) // [[1,3,3],[1,2,2],[1,3,4]]
+    var scores_acum = []
+    for (var i = 0; i < comportamientos.length; i++) {
+        scores_acum.append(0);
+        for (var x=0; x < scores_list.length; x++){
+            scores_acum[i]+= scores_list[x][i]
+        }
+    }
+    var scores = scores_acum.map(score => score/ scores_list.length) //Se divide en numero de individuos
 }
 getData()
-//------ Calculo de labels y cada data ------
+
+
 
 //-------------------------------------------
 window.chartColors = {
