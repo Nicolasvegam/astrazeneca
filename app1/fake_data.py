@@ -124,10 +124,10 @@ def main_fake(output, role):
 
 output_AMP = main_ideal([], AMP)
 output_AMP = main_fake(output_AMP, AMP)
-output_AMP = json.dumps(output_AMP)
+output_AMP = json.dumps(output_AMP,ensure_ascii=False)
 output_KAM = main_ideal([], KAM)
 output_KAM = main_ideal(output_KAM, KAM)
-output_KAM = json.dumps(output_KAM)
+output_KAM = json.dumps(output_KAM,ensure_ascii=False)
 output_FLSM = main_ideal([], FLSM)
 output_FLSM = main_ideal(output_FLSM, FLSM)
-output_FLSM = json.dumps(output_FLSM)
+output_FLSM = json.dumps(output_FLSM,ensure_ascii=False)
