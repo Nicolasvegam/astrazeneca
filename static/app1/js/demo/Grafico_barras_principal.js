@@ -1,5 +1,3 @@
-
-
 google.charts.load('current', {'packages':['corechart']});
 google.charts.setOnLoadCallback(drawVisualization);
 //Borrar
@@ -122,7 +120,7 @@ async function drawVisualization( ) {
     //Se obtiene Data desde vista
     var cap_name = await document.getElementById("capacidad").value;
     var appData = await document.getElementById("otro").value;
-    
+
     console.log(appData)
     const id_usuario = 1
     //obtengo lista de competencias secundarias de la competencia principal
