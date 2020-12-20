@@ -22,8 +22,10 @@ async function getData(){
         }
     }
     var scores = scores_acum.map(score => score/ scores_list.length) //Se divide en numero de individuos
+    return {'labels':comportamientos, 'data1': fundamental, 'data2': regular, 'data3':profesional, 'data4': scores}
 }
-getData()
+
+var input_graph = getData()
 
 
 

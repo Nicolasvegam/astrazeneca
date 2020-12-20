@@ -116,12 +116,11 @@ function transpose(a) {
     });
 }
 
-
-async function drawVisualization( ) {
-    var cap_name = await document.getElementById("capacidad").value;
+async function getData(){
+    var secundaria = await document.getElementById("capacidad").value;
     var id = await document.getElementById("id").value;
     var cargo = await document.getElementById("cargo").value;
-    console.log("Capacidad:", cap_name)
+    console.log("Capacidad:", secundaria)
     console.log("Id:",id)
     console.log("Cargo:", cargo)
     //obtengo lista de competencias secundarias de la competencia principal
@@ -136,6 +135,13 @@ async function drawVisualization( ) {
     //Adapto datos a formato del grafico
 
     
+
+}
+
+
+async function drawVisualization( ) {
+    var cap_name = await document.getElementById("capacidad").value;
+   
     //---------Datos falsos--------------
     var capacidades_secundarias = ['Experticia','Conocimiento del Cliente','Conocimiento del Entorno','Compliance']
     var sf=['Fundamental',6,9,10]
