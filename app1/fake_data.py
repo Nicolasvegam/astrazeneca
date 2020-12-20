@@ -13,10 +13,11 @@ columna_comportamientos = 'B'
 output = []
 ideal = False
 
-def iterar_comportamiento(hoja,primer_comportamiento, ultimo_comportamiento, nombre, padre, id, nivel):
+def iterar_comportamiento(hoja,primer_comportamiento, ultimo_comportamiento, nombre, padre, id, nivel, ROLE):
 
     dato = {'id': id,
            'nivel': nivel, #0,
+           'role': ROLE,
            'nombre': nombre, #next.value,
            'padre': padre, #competencia_principal,
            'comportamientos': [
@@ -48,7 +49,7 @@ def iterar_comportamiento(hoja,primer_comportamiento, ultimo_comportamiento, nom
 
     return dato
 
-def main_ideal(output, role):
+def main_ideal(output, role, ROLE):
 
 
     wb = openpyxl.load_workbook(os.path.dirname(os.path.abspath(__file__)) + '/' + role)
@@ -74,7 +75,7 @@ def main_ideal(output, role):
                 primer_comportamiento = bloque.bounds[1]
                 ultimo_comportamiento = bloque.bounds[3]
                 #print('[LOG4] {0}'.format(next.value))
-                dato = iterar_comportamiento(hoja, primer_comportamiento, ultimo_comportamiento, next.value, competencia_principal, 0, nivel)
+                dato = iterar_comportamiento(hoja, primer_comportamiento, ultimo_comportamiento, next.value, competencia_principal, 0, nivel, ROLE)
                 output.append(dato)
 
 
@@ -83,13 +84,13 @@ def main_ideal(output, role):
 
     return output
 
-def main_fake(output, role):
+def main_fake(output, role, ROLE):
 
 
     wb = openpyxl.load_workbook(os.path.dirname(os.path.abspath(__file__)) + '/' + role)
     competencias_principales = wb.sheetnames
 
-    for id in range(1,20):
+    for id in range(1,6):
 
         nivel = random.choice(['Fundamental', 'Regular', 'Profesional'])
 
@@ -111,7 +112,7 @@ def main_fake(output, role):
                 primer_comportamiento = bloque.bounds[1]
                 ultimo_comportamiento = bloque.bounds[3]
 
-                dato = iterar_comportamiento(hoja, primer_comportamiento, ultimo_comportamiento, next.value, competencia_principal, id, nivel)
+                dato = iterar_comportamiento(hoja, primer_comportamiento, ultimo_comportamiento, next.value, competencia_principal, id, nivel, ROLE)
                 output.append(dato)
 
 
@@ -121,13 +122,11 @@ def main_fake(output, role):
     return output
 
 
+output = main_ideal([], AMP, 'AMP')
+output += main_fake([], AMP, 'AMP')
+output += main_ideal([], KAM, 'KAM')
+output += main_fake([], KAM, 'KAM')
+output += main_ideal([], FLSM, 'FLSM')
+output += main_fake([], FLSM, 'FLSM')
 
-output_AMP = main_ideal([], AMP)
-output_AMP = main_fake(output_AMP, AMP)
-output_AMP = json.dumps(output_AMP,ensure_ascii=False)
-output_KAM = main_ideal([], KAM)
-output_KAM = main_ideal(output_KAM, KAM)
-output_KAM = json.dumps(output_KAM,ensure_ascii=False)
-output_FLSM = main_ideal([], FLSM)
-output_FLSM = main_ideal(output_FLSM, FLSM)
-output_FLSM = json.dumps(output_FLSM,ensure_ascii=False)
+output = json.dumps(output,ensure_ascii=False)

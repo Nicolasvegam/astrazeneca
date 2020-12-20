@@ -2,17 +2,18 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .models import Job, Collection
 from static.app1.csv.data import Data , Capacidades
-from .fake_data import output_AMP, output_KAM, output_FLSM
+from .fake_data import output
 
 #para pasar
 def index(request):
     collections = Collection.objects.all()
-    context = {'collections': collections, 'Data': Data, 'Otro': output_FLSM}
+    context = {'collections': collections, 'Data': Data, 'Otro': output}
     return render(request, 'app1/index.html', context)
 
 def index2(request):
+    #print(output)
     #A partir de Data se deberia calcular el [] con Competencia principal/Score por cargo que se muestra en la vista
-    context = {'capacidades':Capacidades,'Data': Data, 'Otro': output_FLSM}
+    context = {'capacidades':Capacidades,'Data': Data, 'Otro': output}
     return render(request, 'app1/Informacion_General.html',context)
 
 def MercadoExterno(request):
@@ -27,7 +28,7 @@ def Topbar(request):
     return render(request, 'app1/Topbar.html')
 
 def Matriz_Competencia_Principal(request, capacidad,cargo):
-    context = {'capacidad':capacidad,'cargo':cargo,'capacidades':Capacidades,'Data': Data, 'Otro': output_FLSM}
+    context = {'capacidad':capacidad,'cargo':cargo,'capacidades':Capacidades,'Data': Data, 'Otro': output}
     return render(request, 'app1/Matriz_Competencia_Principal.html',context)
 
 def Matriz_Competencia_Principal_Individual(request, capacidad,cargo):
