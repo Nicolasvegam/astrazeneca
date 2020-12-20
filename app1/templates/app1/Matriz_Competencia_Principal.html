@@ -34,19 +34,21 @@
             <!-- Main Content -->
             <div id="content">
                 {% include "app1/Topbar.html" %}
-                
+
 
                 <!-- Capacidad 2: Comportamientos por nivel de experticia  -->
-               
+
 
                 <div class="container-fluid">
                     <input type="text" id="capacidad" style="display: none" value="{{ capacidad|safe }}">
+                    <input type="text/javascript" id="otro" style="display: none" value="{{ Otro|escapejs }}">
+
                     <!-- Area Chart -->
                     <div class="col-xl-10 col-lg-10">
                        <div class="card shadow mb-10">
                         <div
                             class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        
+
                              <h6 class="m-0 font-weight-bold text-primary">{{capacidad}} : Score de Nivel real vs niveles de experticia </h6>
                         </div>
 
@@ -74,7 +76,7 @@
                                         </div>
                                     </div>
                                 </div>
-                               
+
                                 <div class="col-lg-6 mb-4">
                                     <div class="card bg-danger text-white shadow">
                                         <div class="card-body">
@@ -91,11 +93,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                
-                                
-                               
-                                
-                           
+
+
+
+
+
                             </div>
                            </div>
 
@@ -191,9 +193,10 @@
     <script>
         var capacidad_secuntaria = "{{capacidad}}";
     </script>
-  
-    <script src="{% static "app1/js/demo/Grafico_barras_principal.js" %}"></script>
     
+
+    <script src="{% static "app1/js/demo/Grafico_barras_principal.js" %}"></script>
+
     </script>
 
 </body>

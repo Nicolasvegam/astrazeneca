@@ -1,5 +1,3 @@
-
-
 google.charts.load('current', {'packages':['corechart']});
 google.charts.setOnLoadCallback(drawVisualization);
 //Borrar
@@ -166,6 +164,14 @@ async function getData(){
 async function drawVisualization( ) {
     //Se obtiene Data desde vista
     var cap_name = await document.getElementById("capacidad").value;
+    var appData = await document.getElementById("otro").value;
+    //var json_ = JSON.parse(appData)
+    let str = JSON.parse('"' + appData + '"');   // decoded string here
+    let obj = JSON.parse(str);
+    console.log(obj[0]);   // Javascript object here
+
+    const id_usuario = 1
+
 
     //-----Datos Falsos----
     var capacidades_secundarias = ['Experticia','Conocimiento del Cliente','Conocimiento del Entorno','Compliance']
