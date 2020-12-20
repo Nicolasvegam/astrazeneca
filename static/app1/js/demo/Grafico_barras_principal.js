@@ -164,7 +164,7 @@ async function getData(){
 async function drawVisualization( ) {
     //Se obtiene Data desde vista
     var cap_name = await document.getElementById("capacidad").value;
-    var appData = await document.getElementById("otro").value;
+    var appData = await document.getElementById("data").value;
     //var json_ = JSON.parse(appData)
     let str = JSON.parse('"' + appData + '"');   // decoded string here
     let obj = JSON.parse(str);
