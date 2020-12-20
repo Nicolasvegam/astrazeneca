@@ -115,6 +115,51 @@ function transpose(a) {
     });
 }
 
+async function getData(){
+    var principal = await document.getElementById("capacidad").value;
+    var cargo = await document.getElementById("cargo").value;
+    console.log("Capacidad:", secundaria)
+    console.log("Id:",id)
+    console.log("Cargo:", cargo)
+    //obtengo lista de competencias secundarias de la competencia principal
+    var capacidades_secundarias = datos.filter(d => d.nombre == principal && d.nivel == 'Basico' && d.id== 0).map(capacidad => capacidad.nombre) //Filtro basico y 0 es para evitar duplicados
+    //Para cada competencia secundaria
+    var scores_fundamental = []
+    var scores_regular = []
+    var scores_profesional = []
+    var scores_real = []
+    //Obtengo comportamientos de la competencia secundaria
+    capacidades_secundarias.forEach( capacidad =>{
+        //var comportamientos = datos.filter(d => d.nombre == capacidad)[0].comportamientos[0].list
+        //-------Data------
+        //Obtengo puntaje de cada competencia secundaria a partir de sus compartamientos (suma)
+        var fundamental = datos.filter(d => d.nombre == capacidad && d.nivel == 'Basico')[0].comportamientos[0].scores.reduce((a,b) => a+b, 0)
+        scores_fundamental.append(fundamental)
+        var regular = datos.filter(d => d.nombre == capacidad && d.nivel == 'Regular')[0].comportamientos[0].scores.reduce((a,b) => a+b, 0)
+        scores_regular.append(regular)
+        var profesional = datos.filter(d => d.nombre == capacidad && d.nivel == 'Experto')[0].comportamientos[0].scores.reduce((a,b) => a+b, 0)
+        scores_profesional.append(profesional)
+        var real = datos.filter(d => d.nombre == secundaria  && d.id!= 0 )
+        var scores_list = real.map(individuo => ( individuo.comportamientos[0].scores)) // [[1,3,3],[1,2,2],[1,3,4]]
+        var scores_acum = []
+        for (var i = 0; i < comportamientos.length; i++) {
+            scores_acum.append(0);
+            for (var x=0; x < scores_list.length; x++){
+                scores_acum[i]+= scores_list[x][i]
+            }
+        }
+        var scores = scores_acum.map(score => score/ scores_list.length).reduce((a,b) => a+b, 0) //Se divide en numero de individuos y despues se suman
+        scores_real.append(scores)
+    })
+     //Adapto datos a formato del grafico
+    capacidades_secundarias.unshift('Experticia')
+    scores_fundamental.unshift('Fundamental')
+    scores_regular.unshift('Regular')
+    scores_profesional.unshift('Profesional')
+    scores_real.append('Real')
+    return [capacidades_secundarias, scores_fundamental, scores_regular, scores_profesional, scores_real] 
+  
+}
 
 async function drawVisualization( ) {
     //Se obtiene Data desde vista
@@ -126,11 +171,7 @@ async function drawVisualization( ) {
     console.log(obj[0]);   // Javascript object here
 
     const id_usuario = 1
-    //obtengo lista de competencias secundarias de la competencia principal
-    //Para cada competencia secundaria
-    //Obtengo comportamientos de la competencia secundaria
-    //Obtengo puntaje de cada competencia secundaria a partir de sus compartamientos
-    //Adapto datos a formato del grafico
+
 
     //-----Datos Falsos----
     var capacidades_secundarias = ['Experticia','Conocimiento del Cliente','Conocimiento del Entorno','Compliance']

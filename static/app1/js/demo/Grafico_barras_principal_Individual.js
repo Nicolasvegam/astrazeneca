@@ -116,38 +116,61 @@ function transpose(a) {
     });
 }
 
-
-async function drawVisualization( ) {
-    var cap_name = await document.getElementById("capacidad").value;
+async function getData(){
+    var principal = await document.getElementById("capacidad").value;
     var id = await document.getElementById("id").value;
     var cargo = await document.getElementById("cargo").value;
-    console.log("Capacidad:", cap_name)
+    console.log("Capacidad:", secundaria)
     console.log("Id:",id)
     console.log("Cargo:", cargo)
     //obtengo lista de competencias secundarias de la competencia principal
+    var capacidades_secundarias = datos.filter(d => d.nombre == principal && d.nivel == 'Basico' && d.id== 0).map(capacidad => capacidad.nombre) //Filtro basico y 0 es para evitar duplicados
     //Para cada competencia secundaria
+    var scores_fundamental = []
+    var scores_regular = []
+    var scores_profesional = []
+    var scores_real = []
     //Obtengo comportamientos de la competencia secundaria
-    var comportamientos = datos.filter(d => d.nombre == secundaria)[0].comportamientos[0].list
-    var basico = datos.filter(d => d.nombre == secundaria && d.nivel == 'Basico')[0].comportamientos[0].scores
-    var regular = datos.filter(d => d.nombre == secundaria && d.nivel == 'Regular')[0].comportamientos[0].scores
-    var experto = datos.filter(d => d.nombre == secundaria && d.nivel == 'Experto')[0].comportamientos[0].scores
-    var real = datos.filter(d => d.nombre == secundaria  && d.id== id_usuario )[0].comportamientos[0].scores
-    //Obtengo puntaje de cada competencia secundaria a partir de sus compartamientos (suma)
-    //Adapto datos a formato del grafico
+    capacidades_secundarias.forEach( capacidad =>{
+        //var comportamientos = datos.filter(d => d.nombre == capacidad)[0].comportamientos[0].list
+        //-------Data------
+        //Obtengo puntaje de cada competencia secundaria a partir de sus compartamientos (suma)
+        var fundamental = datos.filter(d => d.nombre == capacidad && d.nivel == 'Basico')[0].comportamientos[0].scores.reduce((a,b) => a+b, 0)
+        scores_fundamental.append(fundamental)
+        var regular = datos.filter(d => d.nombre == capacidad && d.nivel == 'Regular')[0].comportamientos[0].scores.reduce((a,b) => a+b, 0)
+        scores_regular.append(regular)
+        var profesional = datos.filter(d => d.nombre == capacidad && d.nivel == 'Experto')[0].comportamientos[0].scores.reduce((a,b) => a+b, 0)
+        scores_profesional.append(profesional)
+        var real = datos.filter(d => d.nombre == capacidad  && d.id== id )[0].comportamientos[0].scores.reduce((a,b) => a+b, 0)
+        scores_real.append(real)
+    })
+     //Adapto datos a formato del grafico
+    capacidades_secundarias.unshift('Experticia')
+    scores_fundamental.unshift('Fundamental')
+    scores_regular.unshift('Regular')
+    scores_profesional.unshift('Profesional')
+    scores_real.append('Real')
+    return [capacidades_secundarias, scores_fundamental, scores_regular, scores_profesional, scores_real] 
+  
+}
 
-    
+
+async function drawVisualization( ) {
+    var cap_name = await document.getElementById("capacidad").value;
+   
     //---------Datos falsos--------------
     var capacidades_secundarias = ['Experticia','Conocimiento del Cliente','Conocimiento del Entorno','Compliance']
     var sf=['Fundamental',6,9,10]
     var sr=['Regular',6,12,11]
     var sp=['Profesional',12,12,14]
     var sreal=['Real',8,7,12]
-    // Calcula con cual es más semejante (diferncia de vectores)
+
+    // [Dato Falso] -> Calcular con cual es más semejante (diferncia de vectores)
     var categoria = 'Regular'
 
-
-    datos_finales = [capacidades_secundarias, sf, sr, sp, sreal]
-    datos_transpuestos = transpose(datos_finales)
+    //var datos_finales = getData()
+    var datos_finales = [capacidades_secundarias, sf, sr, sp, sreal]
+    var datos_transpuestos = transpose(datos_finales)
 
     var data = google.visualization.arrayToDataTable(datos_transpuestos)
 

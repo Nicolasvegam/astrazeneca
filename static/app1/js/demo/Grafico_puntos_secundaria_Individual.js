@@ -1,22 +1,25 @@
 // Se obtiene id usuario y datos para filtro especifico
 async function getData(){
+    var datos = [{},{}]
     var id = await document.getElementById("id").value
     console.log("id usuario:",id)
     var cargo = await document.getElementById("cargo").value
     console.log("cargo:",cargo)
     var capacidad = await document.getElementById("capacidad").value
     console.log("capacidad:",capacidad)
+    //------ Calculo de labels y cada data ------
+    //------Labels-----
+    var comportamientos = datos.filter(d => d.nombre == capacidad)[0].comportamientos[0].list
+    //-------Data------
+    var fundamental = datos.filter(d => d.nombre == capacidad && d.nivel == 'Basico')[0].comportamientos[0].scores
+    var regular = datos.filter(d => d.nombre == capacidad && d.nivel == 'Regular')[0].comportamientos[0].scores
+    var profesional = datos.filter(d => d.nombre == capacidad && d.nivel == 'Experto')[0].comportamientos[0].scores
+    var real = datos.filter(d => d.nombre == capacidad  && d.id== id )[0].comportamientos[0].scores
+    return {'labels':comportamientos, 'data1': fundamental, 'data2': regular, 'data3':profesional, 'data4': real}
 }
-getData()
+var input_graph = getData()
 
-//------ Calculo de labels y cada data ------
-////------Labels-----
-// var comportamientos = datos.filter(d => d.nombre == secundaria)[0].comportamientos[0].list
-////-------Data------
-// var fundamental = datos.filter(d => d.nombre == secundaria && d.nivel == 'Basico')[0].comportamientos[0].scores
-// var regular = datos.filter(d => d.nombre == secundaria && d.nivel == 'Regular')[0].comportamientos[0].scores
-// var profesional = datos.filter(d => d.nombre == secundaria && d.nivel == 'Experto')[0].comportamientos[0].scores
-// var real = datos.filter(d => d.nombre == secundaria  && d.id== id )[0].comportamientos[0].scores
+
 
 //-------------------------------------------
 
