@@ -64,7 +64,7 @@ Data = [{
 },
 ]
 #Se deberia calcular de la Data real, se requiere en todas las vistas por la Navbar  
-Capacidades = {
+Capacidades_ejemplo = {
     'FLSM':[
          {
         'nombre': 'Conocimiento',
