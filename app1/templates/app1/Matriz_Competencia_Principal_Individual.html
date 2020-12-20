@@ -46,12 +46,14 @@
                        <div class="card shadow mb-10">
                         <div
                             class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        
-                             <h6 class="m-0 font-weight-bold text-primary">{{capacidad}} : Score de Nivel real vs niveles de experticia </h6>
+                            
+                             <h6 class="m-0 font-weight-bold text-primary">[Individuo: {{id}}] {{capacidad}} : Score de Nivel real vs niveles de experticia </h6>
                         </div>
 
                            <!-- Card Body -->
                            <div class="card-body" style="padding-bottom: 250px;">
+                            <input type="text" id="cargo" style="display: none" value="{{ cargo|safe }}">
+                            <input type="text" id="id" style="display: none" value="{{ id|safe }}">
                                <div class="chart-area">
                                    <div id="chart_div2" style="text-align: -webkit-center;" ></div>
 
@@ -101,32 +103,7 @@
 
                            </div>
                            <!-- /.container-fluid -->
-                           <!-- Approach -->
-                           <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary"> Resultados por Individuo</h6>
-                            </div>
-                            <div class="card-body">
-                                    <form method = "post" action ="{% url 'Matriz_Competencia_Principal_Individual' capacidad=capacidad cargo='FLSM'%}">
-                                        {% csrf_token %}
-                                        <select name = "drop1" >
-                                                            <!-- Cambiar por un map a ID individuos de Cargo -->
-                                                            <option value="1">1</option>
-                                                            <option value="2">2</option>
-                                                            <option value="3">3</option>
-                                                            <option value="4">4</option>
-                                                            <option value="5">5</option>
-                                                            <option value="6">6</option>
-                                                            <option value="7">7</option>
-                                                            <option value="8">8</option>
-                                                            <option value="9">9</option>
-                                                            <option value="10">10</option>
-                                                            <option value="11">11</option>
-                                                            <option value="12">12</option>
-                                        </select>
-                                        <input  type = "submit" value="Enviar">
-                                        </form>
-                            </div>
+                           
                        </div>
                    </div>
 
@@ -192,7 +169,7 @@
         var capacidad_secuntaria = "{{capacidad}}";
     </script>
   
-    <script src="{% static "app1/js/demo/Grafico_barras_principal.js" %}"></script>
+    <script src="{% static "app1/js/demo/Grafico_barras_principal_Individual.js" %}"></script>
     
     </script>
 

@@ -50,7 +50,7 @@
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        {% for capacidad_sec in capacidades %}
+                        {% for capacidad_sec in capacidades.FLSM %}
                         <a class="collapse-header" href="{% url 'Matriz_Competencia_Principal' capacidad=capacidad_sec.nombre cargo='FLSM'%}" >{{capacidad_sec.nombre }} </a>
                             {% for item in capacidad_sec.list %}
                                 <a class="collapse-item" href="{% url 'Matriz_Competencia_Secundaria' capacidad=item cargo='FLSM'%}"> {{item}} </a>
@@ -81,7 +81,7 @@
                     </a>
                     <div id="collapsePages2" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            {% for capacidad_sec in capacidades %}
+                            {% for capacidad_sec in capacidades.APM %}
                             <a class="collapse-header" href="{% url 'Matriz_Competencia_Principal' capacidad=capacidad_sec.nombre cargo='APM'%}">{{capacidad_sec.nombre }}</a>
                                 {% for item in capacidad_sec.list %}
                                     <a class="collapse-item" href="{% url 'Matriz_Competencia_Secundaria' capacidad=item cargo='APM'%}" > {{item}} </a>
@@ -116,7 +116,7 @@
                     </a>
                     <div id="collapsePages3" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            {% for capacidad_sec in capacidades %}
+                            {% for capacidad_sec in capacidades.KAM %}
                             <a class="collapse-header" href="{% url 'Matriz_Competencia_Principal' capacidad=capacidad_sec.nombre cargo='KAM'%}">{{capacidad_sec.nombre }}</a>
                                 {% for item in capacidad_sec.list %}
                                     <a class="collapse-item" href="{% url 'Matriz_Competencia_Secundaria' capacidad=item cargo='KAM'%}" > {{item}} </a>

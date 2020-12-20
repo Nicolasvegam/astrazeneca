@@ -45,12 +45,12 @@
                         <div class="card shadow mb-10">
                              <div
                              class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                 <h6 class="m-0 font-weight-bold text-primary"> Resumen General para {CARGO}</h6>
+                                 <h6 class="m-0 font-weight-bold text-primary"> Resumen General para {{cargo}}</h6>
                              </div>
                             <!-- Card Body -->
                             <div class="card-body" style="padding-bottom: 250px;">
                  
-                                    
+                                <input type="text" id="cargo" style="display: none" value="{{ cargo|safe }}">     
                                 <canvas id="myChart" width="400" height="400"></canvas>
                                       
 
@@ -58,7 +58,34 @@
  
                             </div>
                             <!-- /.container-fluid -->
+                            <!-- Approach -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary"> Resultados por Individuo</h6>
+                                </div>
+                                <div class="card-body">
+                                        <form method = "post" action = "{% url 'Matriz_Resumen_Cargo_Individual' cargo=cargo%}">
+                                            {% csrf_token %}
+                                            <select name = "drop1" >
+                                                                <!-- Cambiar por un map a ID individuos de Cargo -->
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="5">5</option>
+                                                                <option value="6">6</option>
+                                                                <option value="7">7</option>
+                                                                <option value="8">8</option>
+                                                                <option value="9">9</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                            </select>
+                                            <input  type = "submit" value="Enviar">
+                                            </form>
+                                </div>
                         </div>
+                                
                        
                    </div>
 

@@ -63,9 +63,10 @@ Data = [{
         'scores': [2,3,1,4]}],
 },
 ]
-
-Capacidades = [
-    {
+#Se deberia calcular de la Data real, se requiere en todas las vistas por la Navbar  
+Capacidades = {
+    'FLSM':[
+         {
         'nombre': 'Conocimiento',
         'list': ['Conocimiento del Cliente','Conocimiento del Entorno','Compliance']
     },
@@ -73,5 +74,33 @@ Capacidades = [
         'nombre':'Desarrollo Personal',
         'list': [ 'Liderazgo', 'Comunicacion']
      }
+    ],
+    'KAM':[
+        {
+        'nombre': 'Conocimiento',
+        'list': ['Conocimiento del Cliente','Conocimiento del Entorno','Compliance']
+    },
+    {
+        'nombre':'Desarrollo Personal',
+        'list': [ 'Liderazgo', 'Comunicacion']
+     }
+
+    ],
+
+     'APM':[
+          {
+        'nombre': 'ConocimientoPrueba',
+        'list': ['Conocimiento del Cliente','Conocimiento del Entorno','Compliance']
+    },
+    {
+        'nombre':'Desarrollo Personal',
+        'list': [ 'Liderazgo', 'Comunicacion']
+     }
+
      ]
+   
+
+}
+    
+     
     

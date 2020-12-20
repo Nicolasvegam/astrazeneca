@@ -2,7 +2,7 @@
 
 google.charts.load('current', {'packages':['corechart']});
 google.charts.setOnLoadCallback(drawVisualization);
-//Borrar
+
 const datos = [{
     'id':0,
     'nivel':'Regular',
@@ -104,10 +104,9 @@ const datos = [{
 },
 ]
 
-
-//const principal= 'Conocimiento'
+const principal= 'Conocimiento'
 var secundaria = 'Conocimiento del Cliente'
-//const id_usuario = 1
+const id_usuario = 1
 
 
 
@@ -119,16 +118,25 @@ function transpose(a) {
 
 
 async function drawVisualization( ) {
-    //Se obtiene Data desde vista
     var cap_name = await document.getElementById("capacidad").value;
-    const id_usuario = 1
+    var id = await document.getElementById("id").value;
+    var cargo = await document.getElementById("cargo").value;
+    console.log("Capacidad:", cap_name)
+    console.log("Id:",id)
+    console.log("Cargo:", cargo)
     //obtengo lista de competencias secundarias de la competencia principal
     //Para cada competencia secundaria
     //Obtengo comportamientos de la competencia secundaria
-    //Obtengo puntaje de cada competencia secundaria a partir de sus compartamientos
+    var comportamientos = datos.filter(d => d.nombre == secundaria)[0].comportamientos[0].list
+    var basico = datos.filter(d => d.nombre == secundaria && d.nivel == 'Basico')[0].comportamientos[0].scores
+    var regular = datos.filter(d => d.nombre == secundaria && d.nivel == 'Regular')[0].comportamientos[0].scores
+    var experto = datos.filter(d => d.nombre == secundaria && d.nivel == 'Experto')[0].comportamientos[0].scores
+    var real = datos.filter(d => d.nombre == secundaria  && d.id== id_usuario )[0].comportamientos[0].scores
+    //Obtengo puntaje de cada competencia secundaria a partir de sus compartamientos (suma)
     //Adapto datos a formato del grafico
 
-    //-----Datos Falsos----
+    
+    //---------Datos falsos--------------
     var capacidades_secundarias = ['Experticia','Conocimiento del Cliente','Conocimiento del Entorno','Compliance']
     var sf=['Fundamental',6,9,10]
     var sr=['Regular',6,12,11]

@@ -1,7 +1,9 @@
 // Se obtiene id usuario y datos para filtro especifico
 async function getData(){
-  var cargo = await document.getElementById("cargo").value
-  console.log("cargo:",cargo)
+    var id = await document.getElementById("id").value
+    console.log("id usuario:",id)
+    var cargo = await document.getElementById("cargo").value
+    console.log("cargo:",cargo)
 }
 getData()
 //Obtener Data y filtrar

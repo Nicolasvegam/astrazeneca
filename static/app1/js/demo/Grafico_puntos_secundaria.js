@@ -1,3 +1,14 @@
+// Se obtiene id usuario y datos para filtro especifico
+async function getData(){
+    var cargo = await document.getElementById("cargo").value
+    console.log("cargo:",cargo)
+    var capacidad = await document.getElementById("capacidad").value
+    console.log("capacidad:",capacidad)
+}
+getData()
+//------ Calculo de labels y cada data ------
+
+//-------------------------------------------
 window.chartColors = {
 	red: 'rgb(255, 99, 132)',
 	orange: 'rgb(255, 159, 64)',
