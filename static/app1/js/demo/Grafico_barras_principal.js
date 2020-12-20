@@ -168,7 +168,7 @@ async function drawVisualization( ) {
     //var json_ = JSON.parse(appData)
     let str = JSON.parse('"' + appData + '"');   // decoded string here
     let obj = JSON.parse(str);
-    console.log(obj[0]);   // Javascript object here
+    console.log(obj);   // Javascript object here
 
     const id_usuario = 1
 
