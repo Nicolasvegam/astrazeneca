@@ -49,6 +49,7 @@
                              </div>
                             <!-- Card Body -->
                             <div class="card-body" style="padding-bottom: 250px;">
+                                <input type="text/javascript" id="data" style="display: none" value="{{ Data|escapejs }}">
                                 <input type="text" id="cargo" style="display: none" value="{{ cargo|safe }}">  
                                 <input type="text" id="id" style="display: none" value="{{ id|safe }}">  
                                 <canvas id="myChart" width="400" height="400"></canvas>
