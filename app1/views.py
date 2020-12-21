@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import Job, Collection
 from static.app1.csv.data import Data 
 from .fake_data import output
+from .mercado_externo import data_mercado
 import json
 #------------ PROCESO DE OUTPUT ----------------------------------------
 def index_navbar():
@@ -53,7 +54,7 @@ def index2(request):
 
 def MercadoExterno(request):
     # Agregar Json palabra/frecuencia general
-    context = {'capacidades':Capacidades, 'Data': Data}
+    context = {'capacidades':Capacidades, 'Data': Data, 'Frecuencias': data_mercado}
     return render(request, 'app1/Mercado_Laboral_Externo.html',context)
 
 def Navbar(request):
