@@ -1,7 +1,12 @@
 // Se obtiene id usuario y datos para filtro especifico
 async function getData(){
+  var appData = await document.getElementById("data").value;
+  let str = JSON.parse('"' + appData + '"');   // decoded string here
+  let datos = JSON.parse(str);
+  console.log(datos)
   var cargo = await document.getElementById("cargo").value
   console.log("cargo:",cargo)
+  //----Filtrar data----------
 }
 getData()
 //Obtener Data y filtrar
