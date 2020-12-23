@@ -1,113 +1,5 @@
 google.charts.load('current', {'packages':['corechart']});
 google.charts.setOnLoadCallback(drawVisualization);
-//Borrar
-const datos = [{
-    'id':0,
-    'nivel':'Regular',
-    'nombre':'Conocimiento del Cliente',
-    'padre':'Conocimiento' ,
-    'comportamientos':[{
-        'list': ['comportamiento 1','comportamiento 2','comportamiento 3','comportamiento 4'],
-        'scores': [2,2,2,1]}],
-},
-{
-    'id':0,
-    'nivel':'Experto',
-    'nombre':'Conocimiento del Cliente',
-    'padre':'Conocimiento' ,
-    'comportamientos':[{
-        'list': ['comportamiento 1','comportamiento 2','comportamiento 3','comportamiento 4'],
-        'scores': [2,3,3,3]}],
-},
-{
-    'id':0,
-    'nivel':'Basico',
-    'nombre':'Conocimiento del Cliente',
-    'padre':'Conocimiento' ,
-    'comportamientos':[{
-        'list': ['comportamiento 1','comportamiento 2','comportamiento 3','comportamiento 4'],
-        'scores': [1,1,1,1]}],
-},
-{
-    'id':0,
-    'nivel':'Experto',
-    'nombre':'Conocimiento del Entorno',
-    'padre':'Conocimiento' ,
-    'comportamientos':[{
-        'list': ['comportamiento 1','comportamiento 2','comportamiento 3','comportamiento 4'],
-        'scores': [2,3,3,3]}],
-},
-{
-    'id':0,
-    'nivel':'Basico',
-    'nombre':'Conocimiento del Entorno',
-    'padre':'Conocimiento' ,
-    'comportamientos':[{
-        'list': ['comportamiento 1','comportamiento 2','comportamiento 3','comportamiento 4'],
-        'scores': [1,1,1,1]}],
-},
-{
-    'id':0,
-    'nivel':'Regular',
-    'nombre':'Conocimiento del Entorno',
-    'padre':'Conocimiento' ,
-    'comportamientos':[{
-        'list': ['comportamiento 1','comportamiento 2','comportamiento 3','comportamiento 4'],
-        'scores': [2,3,2,3]}],
-},
-{
-    'id':0,
-    'nivel':'Regular',
-    'nombre':'Compliance',
-    'padre':'Conocimiento' ,
-    'comportamientos':[{
-        'list': ['comportamiento 1','comportamiento 2','comportamiento 3','comportamiento 4'],
-        'scores': [2,3,1,4]}],
-},
-{
-    'id':0,
-    'nivel':'Basico',
-    'nombre':'Compliance',
-    'padre':'Conocimiento' ,
-    'comportamientos':[{
-        'list': ['comportamiento 1','comportamiento 2','comportamiento 3','comportamiento 4'],
-        'scores': [2,3,1,4]}],
-},
-{
-    'id':0,
-    'nivel':'Experto',
-    'nombre':'Compliance',
-    'padre':'Conocimiento' ,
-    'comportamientos':[{
-        'list': ['comportamiento 1','comportamiento 2','comportamiento 3','comportamiento 4'],
-        'scores': [2,3,1,4]}],
-},
-{
-    'id':1,
-    'nivel':'Regular',
-    'nombre':'Conocimiento del Cliente',
-    'padre':'Conocimiento' ,
-    'comportamientos':[{
-        'list': ['comportamiento 1','comportamiento 2','comportamiento 3','comportamiento 4'],
-        'scores': [3,2,3,2]}],
-},
-{
-    'id':2,
-    'nivel':'Regular',
-    'nombre':'Conocimiento del Cliente',
-    'padre':'Conocimiento' ,
-    'comportamientos':[{
-        'list': ['comportamiento 1','comportamiento 2','comportamiento 3','comportamiento 4'],
-        'scores': [3,2,3,2]}],
-},
-]
-
-
-//const principal= 'Conocimiento'
-var secundaria = 'Conocimiento del Cliente'
-//const id_usuario = 1
-
-
 
 function transpose(a) {
     return Object.keys(a[0]).map(function(c) {
@@ -168,7 +60,6 @@ async function getData(){
   
 }
 
-//var input = getData()
 
 async function drawVisualization( ) {
     //Nombre Grafico
@@ -185,7 +76,7 @@ async function drawVisualization( ) {
     var options = {
         title : cap_name,
         vAxis: {title: 'Nivel '},
-        hAxis: {title: 'Competencias secundarias'},
+        hAxis: {title: 'Competencias secundarias',slantedText: true, slantedTextAngle: 0},
         seriesType: 'bars',
         series: {5: {type: 'line'}}
     };
