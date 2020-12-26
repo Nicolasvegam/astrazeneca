@@ -1,24 +1,32 @@
 google.charts.load('current', {'packages':['bar']});
 google.charts.setOnLoadCallback(drawChart);
 
-function drawChart() {
-  var data = google.visualization.arrayToDataTable([
-    ['Cargo', 'Fundamental', 'Regular', 'Profesional'],
-    ['AMP', 15, 60, 20],
-    ['KAM', 11, 46, 25],
-    ['FLSM', 66, 11, 30]
-  ]);
+async function getData3(){
+  var appData = await document.getElementById("data_g2").value;
+  let str = JSON.parse('"' + appData + '"');   // decoded string here
+  let obj = JSON.parse(str);
+  var datos = obj
+  console.log(datos)
+  return datos
+}
+
+async function drawChart() {
+
+  var datos_finales = await  getData3()
+  var lista_final = [['Cargo', 'Fundamental', 'Regular', 'Profesional']]
+  datos_finales.forEach(capacidad_principal =>{lista_final.push(capacidad_principal)});
+  var data = google.visualization.arrayToDataTable(lista_final);
 
   var options = {
     chart: {
       title: 'Nivel General',
-      subtitle: ' Personal Cono Sur',
+      subtitle: ' Personal',
     },
     bars: 'horizontal' // Required for Material Bar Charts.
   };
 
 
-  var chart = new google.charts.Bar(document.getElementById('barchart_material'));
+  var chart = new google.charts.Bar(document.getElementById('bar_principal'));
 
   chart.draw(data, google.charts.Bar.convertOptions(options));
 }
