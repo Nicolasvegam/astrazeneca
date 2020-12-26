@@ -6,6 +6,9 @@ urlpatterns = [
     # ex: /polls/
     path('', views.index, name='index'),
     path('index2/', views.index2, name='index2'),
+    path('chile/', views.index2, name='chile'),
+    path('uruguay/', views.index2, name='uruguay'),
+    path('argentina/', views.index2, name='argentina'),
     path('Navbar/', views.Navbar, name='Navbar'),
     path('Matriz_Competencia_Principal/<cargo>/<capacidad>/', views.Matriz_Competencia_Principal, name='Matriz_Competencia_Principal'),
     path('Matriz_Competencia_Principal_Individual/<cargo>/<capacidad>/', views.Matriz_Competencia_Principal_Individual, name='Matriz_Competencia_Principal_Individual'),

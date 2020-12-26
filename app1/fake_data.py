@@ -13,11 +13,12 @@ columna_comportamientos = 'B'
 output = []
 ideal = False
 
-def iterar_comportamiento(hoja,primer_comportamiento, ultimo_comportamiento, nombre, padre, id, nivel, ROLE):
+def iterar_comportamiento(hoja,primer_comportamiento, ultimo_comportamiento, nombre, padre, id, nivel, ROLE, pais=None):
 
     dato = {'id': id,
            'nivel': nivel, #0,
            'role': ROLE,
+           'pais': pais,
            'nombre': nombre, #next.value,
            'padre': padre, #competencia_principal,
            'comportamientos': [
@@ -93,7 +94,7 @@ def main_fake(output, role, ROLE):
     for id in range(1,6):
 
         nivel = random.choice(['Fundamental', 'Regular', 'Profesional'])
-
+        pais = random.choice(['Chile', 'Argentina', 'Uruguay'])
         for competencia_principal in competencias_principales:
 
             hoja = wb[competencia_principal]
@@ -112,7 +113,7 @@ def main_fake(output, role, ROLE):
                 primer_comportamiento = bloque.bounds[1]
                 ultimo_comportamiento = bloque.bounds[3]
 
-                dato = iterar_comportamiento(hoja, primer_comportamiento, ultimo_comportamiento, next.value, competencia_principal, id, nivel, ROLE)
+                dato = iterar_comportamiento(hoja, primer_comportamiento, ultimo_comportamiento, next.value, competencia_principal, id, nivel, ROLE, pais)
                 output.append(dato)
 
 
@@ -122,11 +123,17 @@ def main_fake(output, role, ROLE):
     return output
 
 
-output = main_ideal([], AMP, 'AMP')
-output += main_fake([], AMP, 'AMP')
-output += main_ideal([], KAM, 'KAM')
-output += main_fake([], KAM, 'KAM')
-output += main_ideal([], FLSM, 'FLSM')
-output += main_fake([], FLSM, 'FLSM')
 
-output = json.dumps(output,ensure_ascii=False)
+#1. determinar si rol x es nivel x, # de personas y % de personas
+#2. determinar % de personal en nivel x
+#3. determinar principales y nivel de Expertiz por rol
+
+amp_ideal = main_ideal([], AMP, 'AMP')
+amp_fake = main_fake([], AMP, 'AMP')
+kam_ideal = main_ideal([], KAM, 'KAM')
+kam_fake = main_fake([], KAM, 'KAM')
+flsm_ideal = main_ideal([], FLSM, 'FLSM')
+flsm_fake = main_fake([], FLSM, 'FLSM')
+
+output = amp_ideal + amp_fake + kam_ideal + kam_fake + flsm_ideal + flsm_fake
+output = json.dumps(output,ensure_ascii=False, indent=4) #quitar el indent

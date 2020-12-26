@@ -1,6 +1,6 @@
-   
+
 <!-- <body id="page-top"> -->
-       
+
        <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -21,9 +21,23 @@
             <li class="nav-item active">
                 <a class="nav-link" href="{% url 'index2' %}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Información General</span></a>
+                    <span>Información Cono Sur</span></a>
             </li>
-
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'argentina' %}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Overall Argentina</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'chile' %}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Overall Chile</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'uruguay' %}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Overall Uruguay</span></a>
+            </li>
             <!-- Divider -->
             <hr class="sidebar-divider">
             <!-- Nav Item - Dashboard -->
@@ -51,9 +65,9 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         {% for capacidad_sec in capacidades.FLSM %}
-                        <a class="collapse-header" href="{% url 'Matriz_Competencia_Principal' capacidad=capacidad_sec.nombre cargo='FLSM'%}" >{{capacidad_sec.nombre }} </a>
+                        <a class="collapse-header" href="{% url 'Matriz_Competencia_Principal' capacidad=capacidad_sec.nombre cargo='FLSM'%}" >{{capacidad_sec.nombre|truncatechars:25 }} </a>
                             {% for item in capacidad_sec.list %}
-                                <a class="collapse-item" href="{% url 'Matriz_Competencia_Secundaria' capacidad=item cargo='FLSM'%}"> {{item}} </a>
+                                <a class="collapse-item" href="{% url 'Matriz_Competencia_Secundaria' capacidad=item cargo='FLSM'%}">  {{ item|truncatechars:19 }} </a>
                             {% endfor %}
                         {% endfor %}
                     </div>
@@ -71,7 +85,7 @@
                 <div class="sidebar-heading">
                     AMP
                 </div>
-    
+
                 <!-- Nav Item - Pages Collapse Menu -->
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages2"
@@ -82,23 +96,25 @@
                     <div id="collapsePages2" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             {% for capacidad_sec in capacidades.AMP %}
+
                             <a class="collapse-header" href="{% url 'Matriz_Competencia_Principal' capacidad=capacidad_sec.nombre cargo='AMP'%}">{{capacidad_sec.nombre }}</a>
                                 {% for item in capacidad_sec.list %}
                                     <a class="collapse-item" href="{% url 'Matriz_Competencia_Secundaria' capacidad=item cargo='AMP'%}" > {{item}} </a>
+
                                 {% endfor %}
                             {% endfor %}
                         </div>
                     </div>
                 </li>
-    
+
                 <!-- Nav Item - Charts -->
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'Matriz_Resumen_Cargo' cargo='AMP'%}">
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span> Resultados Generales</span></a>
                 </li>
-    
-              
+
+
                 <!-- Divider -->
                 <hr class="sidebar-divider">
 
@@ -106,7 +122,7 @@
                 <div class="sidebar-heading">
                     KAM
                 </div>
-    
+
                 <!-- Nav Item - Pages Collapse Menu -->
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages3"
@@ -117,22 +133,22 @@
                     <div id="collapsePages3" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             {% for capacidad_sec in capacidades.KAM %}
-                            <a class="collapse-header" href="{% url 'Matriz_Competencia_Principal' capacidad=capacidad_sec.nombre cargo='KAM'%}">{{capacidad_sec.nombre }}</a>
+                            <a class="collapse-header" href="{% url 'Matriz_Competencia_Principal' capacidad=capacidad_sec.nombre cargo='KAM'%}">{{capacidad_sec.nombre|truncatechars:25 }}</a>
                                 {% for item in capacidad_sec.list %}
-                                    <a class="collapse-item" href="{% url 'Matriz_Competencia_Secundaria' capacidad=item cargo='KAM'%}" > {{item}} </a>
+                                    <a class="collapse-item" href="{% url 'Matriz_Competencia_Secundaria' capacidad=item cargo='KAM'%}" >  {{ item|truncatechars:19 }} </a>
                                 {% endfor %}
                             {% endfor %}
                         </div>
                     </div>
                 </li>
-    
+
                 <!-- Nav Item - Charts -->
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'Matriz_Resumen_Cargo' cargo='KAM' %}">
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span> Resultados Generales</span></a>
                 </li>
-    
+
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">

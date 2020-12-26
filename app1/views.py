@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .models import Job, Collection
-from static.app1.csv.data import Data 
-from .fake_data import output
+from static.app1.csv.data import Data
+from .fake_data import output, amp_ideal, kam_ideal, flsm_ideal
 from .mercado_externo import data_mercado
 import json
 #------------ PROCESO DE OUTPUT ----------------------------------------
@@ -24,7 +24,7 @@ def index_navbar():
         #print(aux)
     return navbar
 
-#Revisar situacion de simbolos / en medio de los nombres 
+#Revisar situacion de simbolos / en medio de los nombres
 Capacidades = {
     'FLSM': [{'nombre': 'Gente', 'list': ['DESARROLLO', 'COLABORACIÓN CROSS FUNCIONAL', 'LIDERAZGO', 'MANEJO DEL DESEMPEÑO']}, {'nombre': 'Coaching', 'list': ['COMUNICAR EFECTIVAMENTE', 'FACILITAR EL APRENDIZAJE Y RESULTADOS', 'PROCESO DE COACHING', 'CONSTRUIR CONFIANZA', 'ESTABLECER LAS BASES']}, {'nombre': 'Resultados', 'list': ['PLANES DE NEGOCIO', 'VISIÓN ESTRATÉGICA DEL NEGOCIO', 'ASIGNACIÓN DE RECURSOS', 'MANEJO DEL NEGOCIO', 'IMPULSA EL NEGOCIO', 'VISIÓN DE NEGOCIO', 'PLANEACIÓN']}, {'nombre': 'Conocimiento', 'list': ['ENFERMEDAD, CIENCIA, TERAPIA, PRODUCTO Y COMPETENCIA', 'CONOCIMIENTO DEL CLIENTE', 'CONOCIMIENTO DEL ENTORNO SANITARIO', 'CONOCIMIENTO DEL ENTORNO  CLIENTE', 'COMPLIANCE']}, {'nombre': 'Desarrollo profesional', 'list': ['MENTALIDAD DE CRECIMIENTO E INNOVACIÓN', '\nAUTOMOTIVACIÓN, DESARROLLO PROFESIONAL Y AUTO CONCIENCIA', 'EFICACIA INTERPERSONAL']}],
     'AMP': [{'nombre': 'Venta Focalizada en Paciente FF', 'list': ['DEMUESTRA CONOCIMIENTO PROFUNDO DE LA CUENTA CLIENTE PACIENTE', 'COMUNICACIÓN', 'ESTABLECE LA NECESIDAD INSATISFECHA DEL PACIENTE Y EL CLIENTE', 'CIERRA CON COMPROMISO EN EL PACIENTE ADECUADO', 'ESCUCHA CON INTENSION', 'PERSONALIZA EL MENSAJE Y MANEJA OBJECIONES']}, {'nombre': 'Resultados', 'list': ['PLANES DE NEGOCIO', 'VISIÓN ESTRATÉGICA DEL NEGOCIO', 'ASIGNACIÓN DE RECURSOS', 'MANEJO DEL NEGOCIO', 'IMPULSA EL NEGOCIO', 'VISIÓN DE NEGOCIO', 'PLANEACIÓN']}, {'nombre': 'Conocimiento', 'list': ['ENFERMEDAD, CIENCIA, TERAPIA, PRODUCTO Y COMPETENCIA', 'CONOCIMIENTO DEL CLIENTE', 'CONOCIMIENTO DEL ENTORNO SANITARIO', 'CONOCIMIENTO DEL ENTORNO  CLIENTE', 'COMPLIANCE']}, {'nombre': 'Auto Gerenciamiento', 'list': ['INTELIGENCIA INTERPERSONAL', 'CONCIENCIA  DESARROLLO', 'AUTOMOTIVACIÓN']}, {'nombre': 'Proceso de Ventas Virtual', 'list': ['PRE-VISITA', 'POST-VISITA', 'VISITA']}],
@@ -47,10 +47,31 @@ def index(request):
     return render(request, 'app1/index.html', context)
 
 def index2(request):
-    #print(output)
-    #A partir de Data se deberia calcular el [] con Competencia principal/Score por cargo que se muestra en la vista
-    context = {'capacidades':Capacidades,'Data': Data, 'Otro': output}
-    return render(request, 'app1/index 2.html',context)
+
+
+    from .levels import graph_3, graph_2, graph
+
+    amp_graph_3 = graph_3(amp_ideal, 60)
+    kam_graph_3 = graph_3(kam_ideal, 120)
+    flsm_graph_3 = graph_3(flsm_ideal, 30)
+    amp_graph_3 = json.dumps(amp_graph_3,ensure_ascii=False)
+    kam_graph_3 = json.dumps(kam_graph_3,ensure_ascii=False)
+    flsm_graph_3 = json.dumps(flsm_graph_3,ensure_ascii=False)
+
+    data_g2 = graph_2(120,60,30)
+    resultado = graph(data_g2)
+
+
+
+    Fundamental = resultado[0]
+    Regular = resultado[1]
+    Profesional = resultado[2]
+
+    data_g2 = json.dumps(data_g2,ensure_ascii=False)
+    print(data_g2)
+    context = {'AMP_3': amp_graph_3, 'KAM_3': kam_graph_3, 'FLSM_3': flsm_graph_3, 'data_g2': data_g2, 'test': 12, 'Fundamental': Fundamental, 'Regular': Regular, 'Profesional': Profesional}
+    return render(request, 'app1/Informacion_General.html',context)
+
 
 def MercadoExterno(request):
     # Agregar Json palabra/frecuencia general
