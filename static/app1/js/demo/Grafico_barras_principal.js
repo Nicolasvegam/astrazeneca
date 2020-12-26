@@ -91,7 +91,10 @@ async function drawVisualization( ) {
 
     var options = {
         title : cap_name,
-        vAxis: {title: 'Nivel '},
+        vAxis: {title: 'Nivel',titleTextStyle: {
+            fontSize: 12, 
+            bold: 'true'
+        }},
         hAxis: {title: 'Competencias secundarias',slantedText: true,
          slantedTextAngle: 30,
          textStyle: {'fontSize': 10},
@@ -101,7 +104,15 @@ async function drawVisualization( ) {
         },
         format: '####'},
         seriesType: 'bars',
-        series: {5: {type: 'line'}}
+        series: {
+            0: { color: 'rgb(54, 162, 235)' },
+            2: { color: 'rgb(75, 192, 192)' },
+            1: { color: 'rgb(255, 99, 132)' },
+            3: { color: 'rgb(255, 205, 86)' },
+            4: { color: '#1c91c0' },
+            5: { color: '#43459d' },
+          }
+
     };
 
   var chart = new google.visualization.ComboChart(document.getElementById('chart_div2'));

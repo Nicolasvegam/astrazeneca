@@ -40,6 +40,10 @@
 
 
                 <div class="container-fluid">
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">{{ capacidad}}</h1>
+                    </div>
                     <input type="text" id="capacidad" style="display: none" value="{{ capacidad|safe }}">
                     <input type="text" id="cargo" style="display: none" value="{{ cargo|safe }}">  
                     <input type="text" id="id" style="display: none" value="{{ id|safe }}">
@@ -50,13 +54,17 @@
                        <div class="card shadow mb-10">
                         <div
                             class="card-header py-3 d-flex flex-row align-items-center ">
-                            <h6 class="m-0 font-weight-bold text-primary"> CATEGORÍA GRUPAL OBTENIDA => </h6>
-                            <h6 id='categoria' class="m-0 font-weight-bold text-primary">   </h6>
+                            <span class="label warning">
+                                <h6 id='categoria' >   </h6>
+                            </span>
+                           
+                            
+                            
                         </div>
                         <div
                             class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 
-                            <h6 class="m-0 font-weight-bold text-primary">{{capacidad}} : Score de Nivel real vs niveles de experticia </h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Nivel real respecto a categorias de experticia </h6>
                         </div>
 
                            <!-- Card Body -->
@@ -69,6 +77,19 @@
                                     </div>
                                 </div>
                              
+
+                            </div>
+                            <!-- Grid Responsive -->
+                            <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+
+                                    <h6 class="m-0 font-weight-bold text-primary">Lista de Comportamientos </h6>
+                            </div>
+                            <div class="cards" >
+                                
+                                {% for comp in comportamientos %}
+                                <div class="card_grid">{{comp}}</div>
+                                {% endfor %}
 
                             </div>
                     
@@ -87,19 +108,11 @@
                                     <form method = "post" action ="{% url 'Matriz_Competencia_Secundaria_Individual' capacidad=capacidad cargo='FLSM'%}">
                                             {% csrf_token %}
                                             <select name = "drop1" >
-                                                                <!-- Cambiar por un map a ID individuos de Cargo -->
-                                                                <option value="1">1</option>
-                                                                <option value="2">2</option>
-                                                                <option value="3">3</option>
-                                                                <option value="4">4</option>
-                                                                <option value="5">5</option>
-                                                                <option value="6">6</option>
-                                                                <option value="7">7</option>
-                                                                <option value="8">8</option>
-                                                                <option value="9">9</option>
-                                                                <option value="10">10</option>
-                                                                <option value="11">11</option>
-                                                                <option value="12">12</option>
+                                                {% for individuo in Individuos %}
+                                           
+                                                <option value= {{individuo}} > {{individuo}}</option>
+                                           
+                                                {% endfor %}
                                             </select>
                                             <input  type = "submit" value="Enviar">
                                             </form>
@@ -176,6 +189,33 @@
     <script src="{% static "app1/js/demo/Grafico_puntos_secundaria.js" %}"></script>
     
     </script>
+
+    <style>
+        .label {
+            color: white;
+            padding: 8px;
+            }
+            .warning {background-color: #e9a848;} /* Orange */
+        .card_grid {
+            background-color: rgb(54, 162, 235);
+            color: white;
+            padding: 1rem;
+            height: 4rem;
+        }
+        .cards {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-gap: 1rem;
+            margin-left: 5%;
+            margin-right: 5%;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            }
+        @media (min-width: 600px) {
+  .cards { grid-template-columns: repeat(2, 1fr); }
+}
+    </style>
 
 </body>
 
