@@ -49,16 +49,35 @@
                         <div class="card shadow mb-10">
                              <div
                              class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                 <h6 class="m-0 font-weight-bold text-primary"> Resumen General para {{cargo}}</h6>
+                                 <h6 class="m-0 font-weight-bold text-primary"> Porcentaje de logro por competencia  </h6>
                              </div>
                             <!-- Card Body -->
-                            <div class="card-body" style="padding-bottom: 250px;">
+                            <div class="card-body" style="padding-bottom: 10px; margin-top:20px;">
                                 <input type="text/javascript" id="data" style="display: none" value="{{ Data|escapejs }}">
+                                <input type="text/javascript" id="lista" style="display: none" value="{{ list|escapejs }}">
                                 <input type="text" id="cargo" style="display: none" value="{{ cargo|safe }}">     
-                                <canvas id="myChart" width="400" height="400"></canvas>
+                                <canvas id="myChart" width="70%" style="max-width:1200px;"></canvas>
                                       
 
                             </div>
+                            <!-- Grid Responsive -->
+                            <div
+                            style='margin-top: 50px;'
+                            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+
+                            <h6 class="m-0 font-weight-bold text-primary">Lista de Competencias Secundarias </h6>
+                           </div>
+                           <div class="cards" >
+                               
+                               {% for cap in list %}
+                               <div class="card_grid" >
+                                
+                                {{cap}}
+
+                               </div>
+                               {% endfor %}
+
+                           </div>
  
                             </div>
                             <!-- /.container-fluid -->
@@ -155,6 +174,40 @@
    
     </script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <style>
+        .a {
+            color: white;
+            
+        }
+        .a:link {
+            color: white;
+            }
+        .label {
+            color: white;
+            padding: 8px;
+            }
+            .warning {background-color: #e9a848;} /* Orange */
+        .card_grid {
+            background-color: rgb(54, 162, 235);
+            color: white;
+            padding: 1rem;
+            height: 4rem;
+        }
+        .cards {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-gap: 1rem;
+            margin-left: 5%;
+            margin-right: 5%;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            }
+        @media (min-width: 600px) {
+  .cards { grid-template-columns: repeat(2, 1fr); }
+}
+    </style>
 
 </body>
 

@@ -9,15 +9,30 @@ async function getData(){
     console.log("id usuario:",id)
     var cargo = await document.getElementById("cargo").value
     console.log("cargo:",cargo)
-    //----Filtrar data----------
+    var lista = Data.filter(d => d.role==cargo && d.id== 0).map(capacidad => capacidad.padre) //Filtro basico y 0 es para evitar duplicados
+    var set = [...new Set(lista)];
+    console.log(set)
+  //----Filtrar data----------
+  return set
 
 }
-getData()
-//Obtener Data y filtrar
 
 //Datos falsos
-var capacidades_principales = ["Conocimiento", "Desarrollo Personal", "Gente", "Coaching", "Resultado"]
-var puntajes = [20, 12,9,11,15]
+function randomScalingFactor() {
+	return (Math.random() > 0.5 ? 1.0 : 0.3) * Math.round(Math.random() * 100);
+}
+
+getData().then(set=>{
+  //Obtener Data y filtrar
+
+//Datos falsos
+var capacidades_principales = set
+console.log(capacidades_principales)
+var puntajes = []
+for(var i=0; i< capacidades_principales.length; i++){
+  puntajes.push(randomScalingFactor())
+}
+console.log(puntajes)
 
 var data = {
     labels: capacidades_principales,
@@ -40,11 +55,7 @@ var options = {
         	mode: 'label'
         },
         scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
+            
         }
     };
 var myRadarChart = new Chart(ctx, {
@@ -83,3 +94,5 @@ Chart.helpers.bindEvents(myRadarChart, ['mousedown'], function(evt) {
     Chart.helpers.bindEvents(myRadarChart, ['mouseout'], outHandler);
   }
 });
+
+})

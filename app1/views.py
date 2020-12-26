@@ -69,7 +69,7 @@ def index2(request):
 
     data_g2 = json.dumps(data_g2,ensure_ascii=False)
     print(data_g2)
-    context = {'AMP_3': amp_graph_3, 'KAM_3': kam_graph_3, 'FLSM_3': flsm_graph_3, 'data_g2': data_g2, 'test': 12, 'Fundamental': Fundamental, 'Regular': Regular, 'Profesional': Profesional}
+    context = {'capacidades':Capacidades,'AMP_3': amp_graph_3, 'KAM_3': kam_graph_3, 'FLSM_3': flsm_graph_3, 'data_g2': data_g2, 'test': 12, 'Fundamental': Fundamental, 'Regular': Regular, 'Profesional': Profesional}
     return render(request, 'app1/Informacion_General.html',context)
 
 
@@ -127,10 +127,13 @@ def Matriz_Competencia_Secundaria_Individual(request, capacidad,cargo): #POST id
 
 def Matriz_Resumen_Cargo(request, cargo):
     individuos_ = [str(x)for x in individuos[cargo] ]
-    context = {'cargo': cargo, 'capacidades':Capacidades, 'Data': output, 'Individuos': individuos_}
+    lista = [x['nombre'] for x in Capacidades[cargo]]
+    print(lista)
+    context = {'cargo': cargo, 'capacidades':Capacidades, 'Data': output, 'Individuos': individuos_, 'list': lista}
     return render(request, 'app1/Matriz_Resumen_Cargo.html', context)
 
 def Matriz_Resumen_Cargo_Individual(request, cargo):
+    lista = [x['nombre'] for x in Capacidades[cargo]]
     #POST id
     if request.method == "POST":
         id = request.POST['drop1']
@@ -140,7 +143,7 @@ def Matriz_Resumen_Cargo_Individual(request, cargo):
        id = 0
 
     #---------------
-    context = {'cargo': cargo, 'capacidades':Capacidades, 'Data': output, 'id':id, 'Individuos': individuos}
+    context = {'cargo': cargo, 'capacidades':Capacidades, 'Data': output, 'id':id, 'Individuos': individuos, 'list': lista}
     return render(request, 'app1/Matriz_Resumen_Cargo_Individual.html', context)
 
 
