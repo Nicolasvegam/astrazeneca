@@ -26,7 +26,14 @@ getData().then(set =>{
 var capacidades_principales = set
 console.log(capacidades_principales)
 var puntajes = []
+var fundamental = []
+var regular = []
+var profesional = []
+
 for(var i=0; i< capacidades_principales.length; i++){
+  fundamental.push((Math.random() > 0.5 ? 0.5 : 0.3) * Math.round(Math.random() * 100))
+  regular.push((Math.random() > 0.5 ? 0.7 : 0.5) * Math.round(Math.random() * 100))
+  profesional.push((Math.random() > 0.5 ? 1.0 : 0.7) * Math.round(Math.random() * 100))
   puntajes.push(randomScalingFactor())
 }
 console.log(puntajes)
@@ -35,15 +42,45 @@ var data = {
     labels: capacidades_principales,
     datasets: [
         {
-            label: "Competencias principales",
-            backgroundColor: "rgba(255,99,132,0.2)",
-            borderColor: "rgba(255,99,132,1)",
-            pointBackgroundColor: "rgba(255,99,132,1)",
+            label: "Real",
+            backgroundColor: "rgba(255, 205, 86,0.2)",
+            borderColor: "rgba(255, 205, 86,1)",
+            pointBackgroundColor: "rgba(255, 205, 86,1)",
             pointBorderColor: "#fff",
             pointHoverBackgroundColor: "#fff",
-            pointHoverBorderColor: "rgba(255,99,132,1)",
+            pointHoverBorderColor: "rgba(255, 205, 86,1)",
             data: puntajes
-        }
+        },
+        {
+          label: "Fundamental",
+          backgroundColor: "rgba(54, 162, 235,0.2)",
+          borderColor: "rgba(54, 162, 235,1)",
+          pointBackgroundColor: "rgba(54, 162, 235,1)",
+          pointBorderColor: "#fff",
+          pointHoverBackgroundColor: "#fff",
+          pointHoverBorderColor: "rgba(54, 162, 235,1)",
+          data: fundamental
+      },
+      {
+        label: "Regular",
+        backgroundColor: "rgba(255,99,132,0.2)",
+        borderColor: "rgba(255,99,132,1)",
+        pointBackgroundColor: "rgba(255,99,132,1)",
+        pointBorderColor: "#fff",
+        pointHoverBackgroundColor: "#fff",
+        pointHoverBorderColor: "rgba(255,99,132,1)",
+        data: regular
+    },
+    {
+      label: "Profesional",
+      backgroundColor: "rgba(75, 192, 192,0.2)",
+      borderColor: "rgba(75, 192, 192,1)",
+      pointBackgroundColor: "rgba(75, 192, 192,1)",
+      pointBorderColor: "#fff",
+      pointHoverBackgroundColor: "#fff",
+      pointHoverBorderColor: "rgba(75, 192, 192,1)",
+      data: profesional
+  }
     ]
 };
 var ctx = document.getElementById("myChart");

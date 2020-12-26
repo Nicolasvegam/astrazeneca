@@ -117,6 +117,23 @@
                                             <input  type = "submit" value="Enviar">
                                             </form>
                                 </div>
+                                 <!-- Pais -->
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary"> Resultados por Pais</h6>
+                            </div>
+                            <div class="card-body">
+                                    <form method = "post" action ="{% url 'Matriz_Competencia_Secundaria_Pais' capacidad=capacidad cargo=cargo%}">
+                                        {% csrf_token %}
+                                        <select name = "drop1" >
+                                            <option value= 'Argentina' > Argentina</option>
+                                            <option value= 'Chile' > Chile </option>
+                                            <option value= 'Uruguay' > Uruguay </option>
+                                 
+                                        </select>
+                                       
+                                        <input  type = "submit" value="Enviar">
+                                        </form>
+                            </div>
                             </div>
                             </div>
                    </div>
