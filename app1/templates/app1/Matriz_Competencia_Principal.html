@@ -79,11 +79,13 @@
                            <div class="cards" >
                                
                                {% for cap in secundarias %}
+                               <a href="{% url 'Matriz_Competencia_Secundaria' capacidad=cap cargo=cargo%}">
                                <div class="card_grid" >
                                 
                                 {{cap}}
 
                                </div>
+                                </a>
                                {% endfor %}
 
                            </div>
@@ -106,6 +108,23 @@
                                                 <option value= {{individuo}} > {{individuo}}</option>
                                            
                                         {% endfor %}
+                                        </select>
+                                       
+                                        <input  type = "submit" value="Enviar">
+                                        </form>
+                            </div>
+                            <!-- Pais -->
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary"> Resultados por Pais</h6>
+                            </div>
+                            <div class="card-body">
+                                    <form method = "post" action ="{% url 'Matriz_Competencia_Principal_Pais' capacidad=capacidad cargo='FLSM'%}">
+                                        {% csrf_token %}
+                                        <select name = "drop1" >
+                                            <option value= 'Argentina' > Argentina</option>
+                                            <option value= 'Chile' > Chile </option>
+                                            <option value= 'Uruguay' > Uruguay </option>
+                                 
                                         </select>
                                        
                                         <input  type = "submit" value="Enviar">

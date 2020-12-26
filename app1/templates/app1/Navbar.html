@@ -97,9 +97,9 @@
                         <div class="bg-white py-2 collapse-inner rounded">
                             {% for capacidad_sec in capacidades.AMP %}
 
-                            <a class="collapse-header" href="{% url 'Matriz_Competencia_Principal' capacidad=capacidad_sec.nombre cargo='AMP'%}">{{capacidad_sec.nombre }}</a>
+                            <a class="collapse-header" href="{% url 'Matriz_Competencia_Principal' capacidad=capacidad_sec.nombre cargo='AMP'%}">{{capacidad_sec.nombre|truncatechars:25 }}</a>
                                 {% for item in capacidad_sec.list %}
-                                    <a class="collapse-item" href="{% url 'Matriz_Competencia_Secundaria' capacidad=item cargo='AMP'%}" > {{item}} </a>
+                                    <a class="collapse-item" href="{% url 'Matriz_Competencia_Secundaria' capacidad=item cargo='AMP'%}" > {{item|truncatechars:19}} </a>
 
                                 {% endfor %}
                             {% endfor %}

@@ -69,7 +69,7 @@ def index2(request):
 
     data_g2 = json.dumps(data_g2,ensure_ascii=False)
     print(data_g2)
-    context = {'AMP_3': amp_graph_3, 'KAM_3': kam_graph_3, 'FLSM_3': flsm_graph_3, 'data_g2': data_g2, 'test': 12, 'Fundamental': Fundamental, 'Regular': Regular, 'Profesional': Profesional}
+    context = {'capacidades':Capacidades,'AMP_3': amp_graph_3, 'KAM_3': kam_graph_3, 'FLSM_3': flsm_graph_3, 'data_g2': data_g2, 'test': 12, 'Fundamental': Fundamental, 'Regular': Regular, 'Profesional': Profesional}
     return render(request, 'app1/Informacion_General.html',context)
 
 
@@ -86,15 +86,18 @@ def Topbar(request):
 
 def Matriz_Competencia_Principal(request, capacidad,cargo):
     data = json.loads(output)
-    secundarias = list(set([x['nombre'] for x in data if (x['padre'] == capacidad)]))
+    #secundarias = list(set([x['nombre'] for x in data if (x['padre'] == capacidad)]))
+    secundarias = [x['list'] for x in Capacidades[cargo] if (x['nombre'] == capacidad)][0]
     individuos_ = [str(x)for x in individuos[cargo] ]
    
     context = {'capacidad':capacidad,'cargo':cargo,'capacidades':Capacidades,'Data':output, 'Individuos': individuos_,'secundarias':secundarias}
     return render(request, 'app1/Matriz_Competencia_Principal.html',context)
 
 def Matriz_Competencia_Principal_Individual(request, capacidad,cargo):
+    individuos_ = [str(x)for x in individuos[cargo] ]
     data = json.loads(output)
-    secundarias = list(set([x['nombre'] for x in data if (x['padre'] == capacidad)]))
+    #secundarias = list(set([x['nombre'] for x in data if (x['padre'] == capacidad)]))
+    secundarias = [x['list'] for x in Capacidades[cargo] if (x['nombre'] == capacidad)][0]
      #POST id
     if request.method == "POST":
         id = request.POST['drop1']
@@ -102,8 +105,23 @@ def Matriz_Competencia_Principal_Individual(request, capacidad,cargo):
         print(id)
     else:
        id = 0
-    context = {'capacidad':capacidad,'cargo':cargo,'capacidades':Capacidades,'Data': output, 'id':id, 'Individuos': individuos,'secundarias':secundarias }
+    context = {'capacidad':capacidad,'cargo':cargo,'capacidades':Capacidades,'Data': output, 'id':id, 'Individuos': individuos_,'secundarias':secundarias }
     return render(request, 'app1/Matriz_Competencia_Principal_Individual.html',context)
+
+def Matriz_Competencia_Principal_Pais(request, capacidad,cargo):
+    individuos_ = [str(x)for x in individuos[cargo] ]
+    data = json.loads(output)
+    #secundarias = list(set([x['nombre'] for x in data if (x['padre'] == capacidad)]))
+    secundarias = [x['list'] for x in Capacidades[cargo] if (x['nombre'] == capacidad)][0]
+     #POST id
+    if request.method == "POST":
+        pais = request.POST['drop1']
+        print("Pais")
+        print(pais)
+    else:
+       pais = 'Argentina'
+    context = {'capacidad':capacidad,'cargo':cargo,'capacidades':Capacidades,'Data': output, 'Pais':pais, 'Individuos':individuos_,'secundarias':secundarias }
+    return render(request, 'app1/Matriz_Competencia_Principal_Pais.html',context)
 
 def Matriz_Competencia_Secundaria(request, capacidad,cargo):
     data = json.loads(output)
@@ -113,6 +131,7 @@ def Matriz_Competencia_Secundaria(request, capacidad,cargo):
     return render(request, 'app1/Matriz_Competencia_Secundaria.html',context)
 
 def Matriz_Competencia_Secundaria_Individual(request, capacidad,cargo): #POST id
+    individuos_ = [str(x)for x in individuos[cargo] ]
     data = json.loads(output)
     comportamientos = [x['comportamientos'][0]['list'] for x in data if (x['nombre'] == capacidad and x['id']== 0 and x['nivel']== 'Fundamental')]
     if request.method == "POST":
@@ -122,15 +141,35 @@ def Matriz_Competencia_Secundaria_Individual(request, capacidad,cargo): #POST id
     else:
        id = 0
 
-    context = {'capacidad':capacidad,'cargo':cargo,'capacidades':Capacidades, 'Data': output, 'id':id, 'Individuos': individuos,  'comportamientos':comportamientos[0]}
+    context = {'capacidad':capacidad,'cargo':cargo,'capacidades':Capacidades, 'Data': output, 'id':id, 'Individuos': individuos_,  'comportamientos':comportamientos[0]}
     return render(request, 'app1/Matriz_Competencia_Secundaria_Individual.html',context)
 
-def Matriz_Resumen_Cargo(request, cargo):
+def Matriz_Competencia_Secundaria_Pais(request, capacidad,cargo): #POST id
     individuos_ = [str(x)for x in individuos[cargo] ]
-    context = {'cargo': cargo, 'capacidades':Capacidades, 'Data': output, 'Individuos': individuos_}
+    data = json.loads(output)
+    comportamientos = [x['comportamientos'][0]['list'] for x in data if (x['nombre'] == capacidad and x['id']== 0 and x['nivel']== 'Fundamental')]
+    if request.method == "POST":
+        pais = request.POST['drop1']
+        print("Pais")
+        print(pais)
+    else:
+       pais = 0
+
+    context = {'capacidad':capacidad,'cargo':cargo,'capacidades':Capacidades, 'Data': output, 'Pais':pais, 'Individuos': individuos_,  'comportamientos':comportamientos[0]}
+    return render(request, 'app1/Matriz_Competencia_Secundaria_Pais.html',context)
+
+
+def Matriz_Resumen_Cargo(request, cargo):
+    principales = []
+    individuos_ = [str(x)for x in individuos[cargo] ]
+    lista = [x['nombre'] for x in Capacidades[cargo]]
+    print(lista)
+    context = {'cargo': cargo, 'capacidades':Capacidades, 'Data': output, 'Individuos': individuos_, 'list': lista, 'principales':principales}
     return render(request, 'app1/Matriz_Resumen_Cargo.html', context)
 
 def Matriz_Resumen_Cargo_Individual(request, cargo):
+    individuos_ = [str(x)for x in individuos[cargo] ]
+    lista = [x['nombre'] for x in Capacidades[cargo]]
     #POST id
     if request.method == "POST":
         id = request.POST['drop1']
@@ -140,8 +179,22 @@ def Matriz_Resumen_Cargo_Individual(request, cargo):
        id = 0
 
     #---------------
-    context = {'cargo': cargo, 'capacidades':Capacidades, 'Data': output, 'id':id, 'Individuos': individuos}
+    context = {'cargo': cargo, 'capacidades':Capacidades, 'Data': output, 'id':id, 'Individuos': individuos_, 'list': lista}
     return render(request, 'app1/Matriz_Resumen_Cargo_Individual.html', context)
+
+def Matriz_Resumen_Cargo_Pais(request, cargo):
+    individuos_ = [str(x)for x in individuos[cargo] ]
+    lista = [x['nombre'] for x in Capacidades[cargo]]
+    #POST id
+    if request.method == "POST":
+        pais = request.POST['drop1']
+        print(pais)
+    else:
+       id = 0
+
+    context = {'cargo': cargo, 'capacidades':Capacidades, 'Data': output, 'Pais':pais, 'Individuos': individuos_, 'list': lista}
+    return render(request, 'app1/Matriz_Resumen_Cargo_Pais.html', context)
+
 
 
 def detail(request, collection_id):

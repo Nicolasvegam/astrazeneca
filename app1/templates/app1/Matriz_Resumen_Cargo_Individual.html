@@ -47,22 +47,83 @@
                      <!-- Area Chart -->
                      <div class="col-xl-10 col-lg-10">
                         <div class="card shadow mb-10">
+                            <div
+                            class="card-header py-3 d-flex flex-row align-items-center ">
+                            <span class="label warning">
+                                    <h6 id='categoria' > Regular   </h6>
+                            </span>
+                             </div>
                              <div
                              class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                 <h6 class="m-0 font-weight-bold text-primary"> Resumen General para en individuo: {{id}}</h6>
+                                 <h6 class="m-0 font-weight-bold text-primary"> [Individuo {{id}}] Porcentaje de logro por competencia  </h6>
                              </div>
                             <!-- Card Body -->
-                            <div class="card-body" style="padding-bottom: 250px;">
+                            <div class="card-body" style="padding-bottom: 20px;">
                                 <input type="text/javascript" id="data" style="display: none" value="{{ Data|escapejs }}">
                                 <input type="text" id="cargo" style="display: none" value="{{ cargo|safe }}">  
                                 <input type="text" id="id" style="display: none" value="{{ id|safe }}">  
-                                <canvas id="myChart" width="400" height="400"></canvas>
+                                <canvas id="myChart" width="70%" style="max-width:1200px;"></canvas>
                                       
 
                             </div>
+                            <!-- Grid Responsive -->
+                            <div
+                            style='margin-top: 50px;'
+                            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+
+                            <h6 class="m-0 font-weight-bold text-primary">Lista de Competencias Secundarias </h6>
+                           </div>
+                           <div class="cards" >
+                               
+                               {% for cap in list %}
+                               <div class="card_grid" >
+                                
+                                {{cap}}
+
+                               </div>
+                               {% endfor %}
+
+                           </div>
  
                             </div>
                             <!-- /.container-fluid -->
+                            <!-- Approach -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary"> Resultados por Individuo</h6>
+                                </div>
+                                <div class="card-body">
+                                        <form method = "post" action = "{% url 'Matriz_Resumen_Cargo_Individual' cargo=cargo%}">
+                                            {% csrf_token %}
+                                            <select name = "drop1" >
+                                                {% for individuo in Individuos %}
+                                           
+                                                <option value= {{individuo}} > {{individuo}}</option>
+                                           
+                                                {% endfor %}
+                                            </select>
+                                            <input  type = "submit" value="Enviar">
+                                            </form>
+                                </div>
+                                 <!-- Pais -->
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary"> Resultados por Pais</h6>
+                                </div>
+                                <div class="card-body">
+                                        <form method = "post" action ="{% url 'Matriz_Resumen_Cargo_Pais' cargo=cargo%}">
+                                            {% csrf_token %}
+                                            <select name = "drop1" >
+                                                <option value= 'Argentina' > Argentina</option>
+                                                <option value= 'Chile' > Chile </option>
+                                                <option value= 'Uruguay' > Uruguay </option>
+                                    
+                                            </select>
+                                        
+                                            <input  type = "submit" value="Enviar">
+                                            </form>
+                                </div>
+
+                        </div>
                         </div>
                        
                    </div>
@@ -137,6 +198,39 @@
    
     </script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <style>
+        .a {
+            color: white;
+            
+        }
+        .a:link {
+            color: white;
+            }
+        .label {
+            color: white;
+            padding: 8px;
+            }
+            .warning {background-color: #e9a848;} /* Orange */
+        .card_grid {
+            background-color: rgb(54, 162, 235);
+            color: white;
+            padding: 1rem;
+            height: 4rem;
+        }
+        .cards {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-gap: 1rem;
+            margin-left: 5%;
+            margin-right: 5%;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            }
+        @media (min-width: 600px) {
+  .cards { grid-template-columns: repeat(2, 1fr); }
+}
+    </style>
 
 </body>
 

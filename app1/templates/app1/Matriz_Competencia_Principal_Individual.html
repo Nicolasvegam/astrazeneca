@@ -59,7 +59,7 @@
                         <div
                             class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                             
-                             <h6 class="m-0 font-weight-bold text-primary">[Individuo: {{id}}] Nivel real respecto a categorias de experticia </h6>
+                             <h6 class="m-0 font-weight-bold text-primary">[Individuo {{id}}] Nivel real respecto a categorias de experticia </h6>
                         </div>
 
                            <!-- Card Body -->
@@ -90,6 +90,43 @@
 
                            </div>
                            <!-- /.container-fluid -->
+                           <!-- Approach -->
+                           <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary"> Resultados por Individuo</h6>
+                            </div>
+                            <div class="card-body">
+                                    <form method = "post" action ="{% url 'Matriz_Competencia_Principal_Individual' capacidad=capacidad cargo='FLSM'%}">
+                                        {% csrf_token %}
+                                        <select name = "drop1" >
+                                        {% for individuo in Individuos %}
+                                           
+                                                <option value= {{individuo}} > {{individuo}}</option>
+                                           
+                                        {% endfor %}
+                                        </select>
+                                       
+                                        <input  type = "submit" value="Enviar">
+                                        </form>
+                            </div>
+                            <!-- Pais -->
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary"> Resultados por Pais</h6>
+                            </div>
+                            <div class="card-body">
+                                    <form method = "post" action ="{% url 'Matriz_Competencia_Principal_Pais' capacidad=capacidad cargo='FLSM'%}">
+                                        {% csrf_token %}
+                                        <select name = "drop1" >
+                                            <option value= 'Argentina' > Argentina</option>
+                                            <option value= 'Chile' > Chile </option>
+                                            <option value= 'Uruguay' > Uruguay </option>
+                                 
+                                        </select>
+                                       
+                                        <input  type = "submit" value="Enviar">
+                                        </form>
+                            </div>
+                       </div>
                            
                        </div>
                    </div>
