@@ -96,9 +96,11 @@
                     <div id="collapsePages2" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             {% for capacidad_sec in capacidades.AMP %}
-                            <a class="collapse-header" href="{% url 'Matriz_Competencia_Principal' capacidad=capacidad_sec.nombre cargo='APM'%}">{{capacidad_sec.nombre|truncatechars:25 }}</a>
+
+                            <a class="collapse-header" href="{% url 'Matriz_Competencia_Principal' capacidad=capacidad_sec.nombre cargo='AMP'%}">{{capacidad_sec.nombre }}</a>
                                 {% for item in capacidad_sec.list %}
-                                    <a class="collapse-item" href="{% url 'Matriz_Competencia_Secundaria' capacidad=item cargo='APM'%}" >{{ item|truncatechars:19 }}</a>
+                                    <a class="collapse-item" href="{% url 'Matriz_Competencia_Secundaria' capacidad=item cargo='AMP'%}" > {{item}} </a>
+
                                 {% endfor %}
                             {% endfor %}
                         </div>
@@ -107,7 +109,7 @@
 
                 <!-- Nav Item - Charts -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'Matriz_Resumen_Cargo' cargo='APM'%}">
+                    <a class="nav-link" href="{% url 'Matriz_Resumen_Cargo' cargo='AMP'%}">
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span> Resultados Generales</span></a>
                 </li>
