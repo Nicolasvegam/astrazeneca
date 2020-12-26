@@ -1,5 +1,9 @@
 // Se obtiene id usuario y datos para filtro especifico
 async function getData(){
+    // var stre = 'It iS a 5r&e@@t Day.'
+    // var array = stre.split(" ");
+    // console.log(stre.substring(0,Math.floor(stre.length/2)));
+    // console.log(stre.substring(Math.floor(stre.length/2),stre.length))
     var appData = await document.getElementById("data").value;
     let str = JSON.parse('"' + appData + '"');   // decoded string here
     let obj = JSON.parse(str);
@@ -12,6 +16,9 @@ async function getData(){
     //------Labels-----
     var comportamientos = datos.filter(d => d.nombre == capacidad)[0].comportamientos[0].list
     console.log(comportamientos)
+    // Ticks en dos lineas
+    var comportamientos_dos = comportamientos.map(comp => [comp.substring(0,Math.floor(comp.length/2)),comp.substring(Math.floor(comp.length/2),comp.length)])
+    console.log(comportamientos_dos)
     //-------Data------
     var fundamental = datos.filter(d => d.nombre == capacidad && d.nivel == 'Fundamental')[0].comportamientos[0].scores
     console.log(fundamental)
@@ -32,7 +39,22 @@ async function getData(){
     }
     var scores = scores_acum.map(score => score/ scores_list.length) //Se divide en numero de individuos
     console.log('scores',scores)
-    return {'labels':comportamientos, 'data1': fundamental, 'data2': regular, 'data3':profesional, 'data4': scores}
+    //----CALCULO DE CATEGORÍA------
+    var categoria = 'Fundamental'
+    var score_obtenido = scores.reduce((a,b) => a+b, 0)
+    var umbral_regular = regular.reduce((a,b) => a+b, 0)
+    var umbral_profesional = profesional.reduce((a,b) => a+b, 0)
+    if (score_obtenido < umbral_regular){
+        categoria = 'Fundamental'
+    }
+    else if (score_obtenido < umbral_profesional){
+        categoria = 'Regular'
+    }
+    else {
+        categoria='Profesional'
+    }
+    console.log('CATEGORIA', categoria, [score_obtenido, umbral_regular, umbral_profesional])
+    return {'labels':comportamientos_dos, 'data1': fundamental, 'data2': regular, 'data3':profesional, 'data4': scores, 'categoria': categoria}
 }
 
 getData().then(data => {
@@ -90,7 +112,7 @@ getData().then(data => {
             },
             title: {
                 position: 'bottom',
-                display: true,
+                display: false,
                 text:'Chart.js Resizable Chart'
             },
             tooltips: {
@@ -106,26 +128,42 @@ getData().then(data => {
                     display: true,
                     scaleLabel: {
                         display: true,
-                        labelString: 'Comportamientos'
+                        labelString: 'Comportamientos',
+                        fontStyle: "bold"
+                    },
+                    ticks:{
+                        display:true,
+                        stepSize: 0,
+                        min: 0,
+                        autoSkip: false,
+                        fontSize: 11,
+                        padding: 12,
+                        autoSkip: false,
+                        maxRotation: 90,
+                        maxRotation: 90
                     }
                 }],
                 yAxes: [{
                     display: true,
                     scaleLabel: {
                         display: true,
-                        labelString: 'Scores'
+                        labelString: 'Scores',
+                        fontStyle: "bold"
                     }
                 }]
             }
         }
     };
-    
+    //Categoria
+
+    document.getElementById('categoria').innerHTML = data.categoria;
     //Draw chart
     window.onload = function() {
         var ctx = document.getElementById("chart").getContext("2d");
         window.myLine = new Chart(ctx, config);
     };
-    
+    //
+    //var prueba = document.getElementById("prueba")
     //Update type of chart 
     $('#updateChart').click(function(e) {
         var chart = window.myLine;

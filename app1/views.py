@@ -50,7 +50,7 @@ def index2(request):
     #print(output)
     #A partir de Data se deberia calcular el [] con Competencia principal/Score por cargo que se muestra en la vista
     context = {'capacidades':Capacidades,'Data': Data, 'Otro': output}
-    return render(request, 'app1/Informacion_General.html',context)
+    return render(request, 'app1/index 2.html',context)
 
 def MercadoExterno(request):
     # Agregar Json palabra/frecuencia general
@@ -64,10 +64,16 @@ def Topbar(request):
     return render(request, 'app1/Topbar.html')
 
 def Matriz_Competencia_Principal(request, capacidad,cargo):
-    context = {'capacidad':capacidad,'cargo':cargo,'capacidades':Capacidades,'Data':output, 'Individuos': individuos}
+    data = json.loads(output)
+    secundarias = list(set([x['nombre'] for x in data if (x['padre'] == capacidad)]))
+    individuos_ = [str(x)for x in individuos[cargo] ]
+   
+    context = {'capacidad':capacidad,'cargo':cargo,'capacidades':Capacidades,'Data':output, 'Individuos': individuos_,'secundarias':secundarias}
     return render(request, 'app1/Matriz_Competencia_Principal.html',context)
 
 def Matriz_Competencia_Principal_Individual(request, capacidad,cargo):
+    data = json.loads(output)
+    secundarias = list(set([x['nombre'] for x in data if (x['padre'] == capacidad)]))
      #POST id
     if request.method == "POST":
         id = request.POST['drop1']
@@ -75,14 +81,19 @@ def Matriz_Competencia_Principal_Individual(request, capacidad,cargo):
         print(id)
     else:
        id = 0
-    context = {'capacidad':capacidad,'cargo':cargo,'capacidades':Capacidades,'Data': output, 'id':id, 'Individuos': individuos }
+    context = {'capacidad':capacidad,'cargo':cargo,'capacidades':Capacidades,'Data': output, 'id':id, 'Individuos': individuos,'secundarias':secundarias }
     return render(request, 'app1/Matriz_Competencia_Principal_Individual.html',context)
 
 def Matriz_Competencia_Secundaria(request, capacidad,cargo):
-    context = {'capacidad':capacidad,'cargo':cargo,'capacidades':Capacidades, 'Data': output, 'Individuos': individuos}
+    data = json.loads(output)
+    comportamientos = [x['comportamientos'][0]['list'] for x in data if (x['nombre'] == capacidad and x['id']== 0 and x['nivel']== 'Fundamental')]
+    individuos_ = [str(x)for x in individuos[cargo] ]
+    context = {'capacidad':capacidad,'cargo':cargo,'capacidades':Capacidades, 'Data': output, 'Individuos': individuos_, 'comportamientos':comportamientos[0]}
     return render(request, 'app1/Matriz_Competencia_Secundaria.html',context)
 
 def Matriz_Competencia_Secundaria_Individual(request, capacidad,cargo): #POST id
+    data = json.loads(output)
+    comportamientos = [x['comportamientos'][0]['list'] for x in data if (x['nombre'] == capacidad and x['id']== 0 and x['nivel']== 'Fundamental')]
     if request.method == "POST":
         id = request.POST['drop1']
         print("ID usuario")
@@ -90,11 +101,12 @@ def Matriz_Competencia_Secundaria_Individual(request, capacidad,cargo): #POST id
     else:
        id = 0
 
-    context = {'capacidad':capacidad,'cargo':cargo,'capacidades':Capacidades, 'Data': output, 'id':id, 'Individuos': individuos}
+    context = {'capacidad':capacidad,'cargo':cargo,'capacidades':Capacidades, 'Data': output, 'id':id, 'Individuos': individuos,  'comportamientos':comportamientos[0]}
     return render(request, 'app1/Matriz_Competencia_Secundaria_Individual.html',context)
 
 def Matriz_Resumen_Cargo(request, cargo):
-    context = {'cargo': cargo, 'capacidades':Capacidades, 'Data': output, 'Individuos': individuos}
+    individuos_ = [str(x)for x in individuos[cargo] ]
+    context = {'cargo': cargo, 'capacidades':Capacidades, 'Data': output, 'Individuos': individuos_}
     return render(request, 'app1/Matriz_Resumen_Cargo.html', context)
 
 def Matriz_Resumen_Cargo_Individual(request, cargo):

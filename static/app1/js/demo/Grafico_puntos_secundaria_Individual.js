@@ -23,7 +23,25 @@ async function getData(){
     console.log(profesional)
     var real = datos.filter(d => d.nombre == capacidad  && d.id== id )[0].comportamientos[0].scores
     console.log(real)
-    return {'labels':comportamientos, 'data1': fundamental, 'data2': regular, 'data3':profesional, 'data4': real}
+    // ticks en dos lineas
+    var comportamientos_dos = comportamientos.map(comp => [comp.substring(0,Math.floor(comp.length/2)),comp.substring(Math.floor(comp.length/2),comp.length)])
+    console.log(comportamientos_dos)
+    //----CALCULO DE CATEGORÍA------
+    var categoria = 'Fundamental'
+    var score_obtenido = real.reduce((a,b) => a+b, 0)
+    var umbral_regular = regular.reduce((a,b) => a+b, 0)
+    var umbral_profesional = profesional.reduce((a,b) => a+b, 0)
+    if (score_obtenido < umbral_regular){
+        categoria = 'Fundamental'
+    }
+    else if (score_obtenido < umbral_profesional){
+        categoria = 'Regular'
+    }
+    else {
+        categoria='Profesional'
+    }
+    console.log('CATEGORIA', categoria, [score_obtenido, umbral_regular, umbral_profesional])
+    return {'labels':comportamientos_dos, 'data1': fundamental, 'data2': regular, 'data3':profesional, 'data4': real, 'categoria':categoria}
 }
 getData().then(data => {
     window.chartColors = {
@@ -80,7 +98,7 @@ getData().then(data => {
             },
             title: {
                 position: 'bottom',
-                display: true,
+                display: false,
                 text:'Chart.js Resizable Chart'
             },
             tooltips: {
@@ -96,20 +114,35 @@ getData().then(data => {
                     display: true,
                     scaleLabel: {
                         display: true,
-                        labelString: 'Comportamientos'
+                        labelString: 'Comportamientos',
+                        fontStyle: "bold"
+                    },
+                    ticks:{
+                        display:true,
+                        stepSize: 0,
+                        min: 0,
+                        autoSkip: false,
+                        fontSize: 11,
+                        padding: 12,
+                        autoSkip: false,
+                        maxRotation: 90,
+                        maxRotation: 90
                     }
                 }],
                 yAxes: [{
                     display: true,
                     scaleLabel: {
                         display: true,
-                        labelString: 'Scores'
+                        labelString: 'Scores',
+                        fontStyle: "bold"
                     }
                 }]
             }
         }
     };
-    
+     //Categoria
+     document.getElementById('categoria').innerHTML = data.categoria;
+     
     //Draw chart
     window.onload = function() {
         var ctx = document.getElementById("chart").getContext("2d");

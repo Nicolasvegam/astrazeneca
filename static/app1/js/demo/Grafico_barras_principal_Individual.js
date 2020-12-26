@@ -46,13 +46,30 @@ async function getData(){
         scores_real.push(real)
     })
     console.log(scores_fundamental)
+
+    //----CALCULO DE CATEGORÍA------
+    var categoria = 'Fundamental'
+    var score_obtenido = scores_real.reduce((a,b) => a+b, 0)
+    var umbral_regular = scores_regular.reduce((a,b) => a+b, 0)
+    var umbral_profesional = scores_profesional.reduce((a,b) => a+b, 0)
+    if (score_obtenido < umbral_regular){
+        categoria = 'Fundamental'
+    }
+    else if (score_obtenido < umbral_profesional){
+        categoria = 'Regular'
+    }
+    else {
+        categoria='Profesional'
+    }
+    console.log('CATEGORIA', categoria, [score_obtenido, umbral_regular, umbral_profesional])
+
      //Adapto datos a formato del grafico
     capacidades_secundarias.unshift('Experticia')
     scores_fundamental.unshift('Fundamental')
     scores_regular.unshift('Regular')
     scores_profesional.unshift('Profesional')
     scores_real.unshift('Real')
-    return [capacidades_secundarias, scores_fundamental, scores_regular, scores_profesional, scores_real] 
+    return {'data':[capacidades_secundarias, scores_fundamental, scores_regular, scores_profesional, scores_real],'categoria':categoria} 
   
 }
 
@@ -61,24 +78,43 @@ var input = getData()
 async function drawVisualization( ) {
     var cap_name = await document.getElementById("capacidad").value;
 
-    // [Dato Falso] -> Calcular con cual es más semejante (diferncia de vectores)
-    var categoria = 'Regular'
-
+    //Datos
     var datos_finales = await  getData()
+    document.getElementById('categoria').innerHTML = datos_finales.categoria;
 
-    var datos_transpuestos = transpose(datos_finales)
+    datos_transpuestos = transpose(datos_finales.data)
 
     var data = google.visualization.arrayToDataTable(datos_transpuestos)
 
     var options = {
         title : cap_name,
         vAxis: {title: 'Nivel requerido'},
-        hAxis: {title: 'Competencias secundarias'},
+        hAxis: {title: 'Competencias secundarias',slantedText: true,
+        slantedTextAngle: 30,
+        textStyle: {'fontSize': 10},
+        titleTextStyle: {
+           fontSize: 12, 
+           bold: 'true'
+       },
+       format: '####'},
         seriesType: 'bars',
-        series: {5: {type: 'line'}}
+        series: {
+            0: { color: 'rgb(54, 162, 235)' },
+            2: { color: 'rgb(75, 192, 192)' },
+            1: { color: 'rgb(255, 99, 132)' },
+            3: { color: 'rgb(255, 205, 86)' },
+            4: { color: '#1c91c0' },
+            5: { color: '#43459d' },
+          }
     };
 
   var chart = new google.visualization.ComboChart(document.getElementById('chart_div2'));
   chart.draw(data, options);
+  window.onresize = doALoadOfStuff;
+
+    function doALoadOfStuff() {
+        //do a load of stuff
+        chart.draw(data, options);
+    }
 
 }
