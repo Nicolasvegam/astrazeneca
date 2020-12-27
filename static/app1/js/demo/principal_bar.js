@@ -18,6 +18,14 @@ async function drawChart() {
   var data = google.visualization.arrayToDataTable(lista_final);
 
   var options = {
+    series: {
+      0: { color: 'rgb(54, 162, 235)' },
+      3: { color: 'rgb(75, 192, 192)' },
+      1: { color: 'rgb(255, 99, 132)' },
+      2: { color: 'rgb(255, 205, 86)' },
+      4: { color: '#1c91c0' },
+      5: { color: '#43459d' },
+    },
     chart: {
       title: 'Nivel General',
       subtitle: ' Personal',

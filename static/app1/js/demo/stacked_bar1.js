@@ -20,7 +20,15 @@ async function drawVisualization() {
   // Create and draw the visualization.
   new google.visualization.BarChart(document.getElementById('chart1')).
       draw(data,
-           {title:"Logro de Compentencias Principales",
+           {series: {
+            0: { color: 'rgb(54, 162, 235)' },
+            3: { color: 'rgb(75, 192, 192)' },
+            1: { color: 'rgb(255, 99, 132)' },
+            2: { color: 'rgb(255, 205, 86)' },
+            4: { color: '#1c91c0' },
+            5: { color: '#43459d' },
+          },
+             title:"Logro de Compentencias Principales",
             width:'100%', height:400,
             vAxis: {title: "Competencias"}, isStacked: 'percent',
             hAxis: {title: "% de logro"}}

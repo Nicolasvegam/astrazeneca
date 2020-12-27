@@ -126,6 +126,8 @@ def Matriz_Competencia_Principal_Pais(request, capacidad,cargo):
 def Matriz_Competencia_Secundaria(request, capacidad,cargo):
     data = json.loads(output)
     comportamientos = [x['comportamientos'][0]['list'] for x in data if (x['nombre'] == capacidad and x['id']== 0 and x['nivel']== 'Fundamental')]
+    if (not comportamientos):
+        comportamientos = [['No se ha encontrado información']]
     individuos_ = [str(x)for x in individuos[cargo] ]
     context = {'capacidad':capacidad,'cargo':cargo,'capacidades':Capacidades, 'Data': output, 'Individuos': individuos_, 'comportamientos':comportamientos[0]}
     return render(request, 'app1/Matriz_Competencia_Secundaria.html',context)
