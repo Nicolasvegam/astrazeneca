@@ -61,14 +61,12 @@ def index2(request):
     data_g2 = graph_2(120,60,30)
     resultado = graph(data_g2)
 
-
-
     Fundamental = resultado[0]
     Regular = resultado[1]
     Profesional = resultado[2]
 
     data_g2 = json.dumps(data_g2,ensure_ascii=False)
-    print(data_g2)
+
     context = {'capacidades':Capacidades,'AMP_3': amp_graph_3, 'KAM_3': kam_graph_3, 'FLSM_3': flsm_graph_3, 'data_g2': data_g2, 'test': 12, 'Fundamental': Fundamental, 'Regular': Regular, 'Profesional': Profesional}
     return render(request, 'app1/Informacion_General.html',context)
 
@@ -89,7 +87,7 @@ def Matriz_Competencia_Principal(request, capacidad,cargo):
     #secundarias = list(set([x['nombre'] for x in data if (x['padre'] == capacidad)]))
     secundarias = [x['list'] for x in Capacidades[cargo] if (x['nombre'] == capacidad)][0]
     individuos_ = [str(x)for x in individuos[cargo] ]
-   
+
     context = {'capacidad':capacidad,'cargo':cargo,'capacidades':Capacidades,'Data':output, 'Individuos': individuos_,'secundarias':secundarias}
     return render(request, 'app1/Matriz_Competencia_Principal.html',context)
 
