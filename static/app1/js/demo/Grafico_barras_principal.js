@@ -13,11 +13,11 @@ async function getData(){
     let obj = JSON.parse(str);
     var datos = obj
     var principal = await document.getElementById("capacidad").value;
-    //var cargo = await document.getElementById("cargo").value;
+    var cargo = await document.getElementById("cargo").value;
     console.log("Capacidad:", principal)
     //console.log("Cargo:", cargo)
     //obtengo lista de competencias secundarias de la competencia principal
-    var capacidades_secundarias = datos.filter(d => d.padre == principal && d.nivel == 'Fundamental' && d.id== 0).map(capacidad => capacidad.nombre) //Filtro basico y 0 es para evitar duplicados
+    var capacidades_secundarias = datos.filter(d => d.padre == principal && d.nivel == 'Fundamental' && d.id== 0 && d.role == cargo).map(capacidad => capacidad.nombre) //Filtro basico y 0 es para evitar duplicados
     console.log(capacidades_secundarias)
     //Para cada competencia secundaria
     var scores_fundamental = []

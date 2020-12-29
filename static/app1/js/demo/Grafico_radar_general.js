@@ -1,45 +1,15 @@
 // Se obtiene id usuario y datos para filtro especifico
 async function getData(){
-  var appData = await document.getElementById("data").value;
-  let str = JSON.parse('"' + appData + '"');   // decoded string here
-  let datos = JSON.parse(str);
-  console.log(datos)
-  var cargo = await document.getElementById("cargo").value
-  console.log("cargo:",cargo)
-  var lista = datos.filter(d => d.role==cargo && d.id== 0).map(capacidad => capacidad.padre) //Filtro basico y 0 es para evitar duplicados
-  var set = [...new Set(lista)];
-  console.log(set)
-  //----Filtrar data----------
-  return set
+  var random = await document.getElementById("principales").value;
+  let str2 = JSON.parse('"' + random + '"');
+  let data_random = JSON.parse(str2);
+  return data_random[0]
 }
 
-//Datos falsos
-function randomScalingFactor() {
-	return (Math.random() > 0.5 ? 1.0 : 0.3) * Math.round(Math.random() * 100);
-}
-
-getData().then(set =>{
-  //Obtener Data y filtrar
-
-
-
-var capacidades_principales = set
-console.log(capacidades_principales)
-var puntajes = []
-var fundamental = []
-var regular = []
-var profesional = []
-
-for(var i=0; i< capacidades_principales.length; i++){
-  fundamental.push((Math.random() > 0.5 ? 0.5 : 0.3) * Math.round(Math.random() * 100))
-  regular.push((Math.random() > 0.5 ? 0.7 : 0.5) * Math.round(Math.random() * 100))
-  profesional.push((Math.random() > 0.5 ? 1.0 : 0.7) * Math.round(Math.random() * 100))
-  puntajes.push(randomScalingFactor())
-}
-console.log(puntajes)
+getData().then(data =>{
 
 var data = {
-    labels: capacidades_principales,
+    labels: data.competencias,
     datasets: [
         {
             label: "Real",
@@ -49,7 +19,7 @@ var data = {
             pointBorderColor: "#fff",
             pointHoverBackgroundColor: "#fff",
             pointHoverBorderColor: "rgba(255, 205, 86,1)",
-            data: puntajes
+            data: data.real
         },
         {
           label: "Fundamental",
@@ -59,7 +29,7 @@ var data = {
           pointBorderColor: "#fff",
           pointHoverBackgroundColor: "#fff",
           pointHoverBorderColor: "rgba(54, 162, 235,1)",
-          data: fundamental
+          data: data.fundamental
       },
       {
         label: "Regular",
@@ -69,7 +39,7 @@ var data = {
         pointBorderColor: "#fff",
         pointHoverBackgroundColor: "#fff",
         pointHoverBorderColor: "rgba(255,99,132,1)",
-        data: regular
+        data: data.regular
     },
     {
       label: "Profesional",
@@ -79,7 +49,7 @@ var data = {
       pointBorderColor: "#fff",
       pointHoverBackgroundColor: "#fff",
       pointHoverBorderColor: "rgba(75, 192, 192,1)",
-      data: profesional
+      data: data.profesional
   }
     ]
 };

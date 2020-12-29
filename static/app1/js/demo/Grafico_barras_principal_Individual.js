@@ -22,7 +22,7 @@ async function getData(){
     console.log("Id:",id)
     console.log("Cargo:", cargo)
     //obtengo lista de competencias secundarias de la competencia principal
-    var capacidades_secundarias = datos.filter(d => d.padre == principal && d.nivel == 'Fundamental' && d.id== 0).map(capacidad => capacidad.nombre) //Filtro basico y 0 es para evitar duplicados
+    var capacidades_secundarias = datos.filter(d => d.padre == principal && d.nivel == 'Fundamental' && d.id== 0 && d.role == cargo).map(capacidad => capacidad.nombre) //Filtro basico y 0 es para evitar duplicados
     console.log(capacidades_secundarias)
     //Para cada competencia secundaria
     var scores_fundamental = []

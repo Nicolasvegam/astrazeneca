@@ -17,19 +17,15 @@ def index_navbar():
         aux = []
         for principal in principales:
             index = {}
-            secundarias = list(set([x['nombre'] for x in data if (x['padre'] == principal)]))
+            secundarias = list(set([x['nombre'] for x in data if (x['padre'] == principal and x['role'] == cargo)]))
             index['nombre']= principal
             index['list']= secundarias
             navbar[cargo].append(index)
         #print(aux)
     return navbar
-
+print(index_navbar())
 #Revisar situacion de simbolos / en medio de los nombres
-Capacidades = {
-    'FLSM': [{'nombre': 'Gente', 'list': ['DESARROLLO', 'COLABORACIÓN CROSS FUNCIONAL', 'LIDERAZGO', 'MANEJO DEL DESEMPEÑO']}, {'nombre': 'Coaching', 'list': ['COMUNICAR EFECTIVAMENTE', 'FACILITAR EL APRENDIZAJE Y RESULTADOS', 'PROCESO DE COACHING', 'CONSTRUIR CONFIANZA', 'ESTABLECER LAS BASES']}, {'nombre': 'Resultados', 'list': ['PLANES DE NEGOCIO', 'VISIÓN ESTRATÉGICA DEL NEGOCIO', 'ASIGNACIÓN DE RECURSOS', 'MANEJO DEL NEGOCIO', 'IMPULSA EL NEGOCIO', 'VISIÓN DE NEGOCIO', 'PLANEACIÓN']}, {'nombre': 'Conocimiento', 'list': ['ENFERMEDAD, CIENCIA, TERAPIA, PRODUCTO Y COMPETENCIA', 'CONOCIMIENTO DEL CLIENTE', 'CONOCIMIENTO DEL ENTORNO SANITARIO', 'CONOCIMIENTO DEL ENTORNO  CLIENTE', 'COMPLIANCE']}, {'nombre': 'Desarrollo profesional', 'list': ['MENTALIDAD DE CRECIMIENTO E INNOVACIÓN', '\nAUTOMOTIVACIÓN, DESARROLLO PROFESIONAL Y AUTO CONCIENCIA', 'EFICACIA INTERPERSONAL']}],
-    'AMP': [{'nombre': 'Venta Focalizada en Paciente FF', 'list': ['DEMUESTRA CONOCIMIENTO PROFUNDO DE LA CUENTA CLIENTE PACIENTE', 'COMUNICACIÓN', 'ESTABLECE LA NECESIDAD INSATISFECHA DEL PACIENTE Y EL CLIENTE', 'CIERRA CON COMPROMISO EN EL PACIENTE ADECUADO', 'ESCUCHA CON INTENSION', 'PERSONALIZA EL MENSAJE Y MANEJA OBJECIONES']}, {'nombre': 'Resultados', 'list': ['PLANES DE NEGOCIO', 'VISIÓN ESTRATÉGICA DEL NEGOCIO', 'ASIGNACIÓN DE RECURSOS', 'MANEJO DEL NEGOCIO', 'IMPULSA EL NEGOCIO', 'VISIÓN DE NEGOCIO', 'PLANEACIÓN']}, {'nombre': 'Conocimiento', 'list': ['ENFERMEDAD, CIENCIA, TERAPIA, PRODUCTO Y COMPETENCIA', 'CONOCIMIENTO DEL CLIENTE', 'CONOCIMIENTO DEL ENTORNO SANITARIO', 'CONOCIMIENTO DEL ENTORNO  CLIENTE', 'COMPLIANCE']}, {'nombre': 'Auto Gerenciamiento', 'list': ['INTELIGENCIA INTERPERSONAL', 'CONCIENCIA  DESARROLLO', 'AUTOMOTIVACIÓN']}, {'nombre': 'Proceso de Ventas Virtual', 'list': ['PRE-VISITA', 'POST-VISITA', 'VISITA']}],
-    'KAM': [{'nombre': 'Conocimiento Estratégico', 'list': ['CONOCIMIENTO DE LA EMPRESA', 'CONOCIMIENTO DEL CLIENTE', 'CONOCIMIENTO CIENTÍFICO', 'CONOCIMIENTOS DIGITALES', 'CONOCIMIENTO DEL ENTORNO', 'CONOCIMIENTO DEL PACIENTE']}, {'nombre': 'Liderazgo cross-funcional', 'list': ['LIDERA SIN AUTORIDAD', 'DELEGACIÓN', 'TRABAJA COLABORATIVAMENTE CON OTRAS FUNCIONES', 'COMUNICA OBJETIVOS CLAROS']}, {'nombre': 'Propuesta de Valor para el Clie', 'list': ['CREA PROPUESTA DE VALOR CON EL CLIENTE', 'IDENTIFICA EL PROBLEMA QUE IMPORTA', 'ALCANCE INTERNO Y ATRACCIÓN']}, {'nombre': 'Planificación y Gestión de Cuen', 'list': ['GESTIONA LA IMPLEMENTACIÓN', 'SETEA OBJETIVOS ESTRATEGICOS', 'MAPEA STAKEHOLDERS Y BRAND-LOVERS']}, {'nombre': 'Relación con Cliente', 'list': ['COMUNICACIÓN, INFLUENCIA Y NEGOCIACIÓN', 'COMUNICACIÓN, INFLUENCIA Y NEGOCIACIÓN VIRTUAL', 'DESARROLLO DE STAKEHOLDERS Y INFLUENCERS', 'FACILITAR GRUPOS DE CLIENTES']}]}
-
+Capacidades = index_navbar()
 def individuos_por_cargo():
     data = json.loads(output)
     FLSM = list(set([x['id'] for x in data if (x['role'] == 'FLSM' and x['id']!= 0)]))
@@ -160,16 +156,21 @@ def Matriz_Competencia_Secundaria_Pais(request, capacidad,cargo): #POST id
 
 
 def Matriz_Resumen_Cargo(request, cargo):
-    principales = []
+    from .levels import random_graph_radar
+    
     individuos_ = [str(x)for x in individuos[cargo] ]
     lista = [x['nombre'] for x in Capacidades[cargo]]
-    print(lista)
-    context = {'cargo': cargo, 'capacidades':Capacidades, 'Data': output, 'Individuos': individuos_, 'list': lista, 'principales':principales}
+    data_random = random_graph_radar(lista)
+    print(data_random)
+    context = {'cargo': cargo, 'capacidades':Capacidades, 'Data': output, 'Individuos': individuos_, 'list': lista, 'principales': data_random}
     return render(request, 'app1/Matriz_Resumen_Cargo.html', context)
 
 def Matriz_Resumen_Cargo_Individual(request, cargo):
+
+    from .levels import random_graph_radar
     individuos_ = [str(x)for x in individuos[cargo] ]
     lista = [x['nombre'] for x in Capacidades[cargo]]
+    data_random = random_graph_radar(lista)
     #POST id
     if request.method == "POST":
         id = request.POST['drop1']
@@ -179,12 +180,14 @@ def Matriz_Resumen_Cargo_Individual(request, cargo):
        id = 0
 
     #---------------
-    context = {'cargo': cargo, 'capacidades':Capacidades, 'Data': output, 'id':id, 'Individuos': individuos_, 'list': lista}
+    context = {'cargo': cargo, 'capacidades':Capacidades, 'Data': output, 'id':id, 'Individuos': individuos_, 'list': lista, 'principales':data_random}
     return render(request, 'app1/Matriz_Resumen_Cargo_Individual.html', context)
 
 def Matriz_Resumen_Cargo_Pais(request, cargo):
+    from .levels import random_graph_radar
     individuos_ = [str(x)for x in individuos[cargo] ]
     lista = [x['nombre'] for x in Capacidades[cargo]]
+    data_random = random_graph_radar(lista)
     #POST id
     if request.method == "POST":
         pais = request.POST['drop1']
@@ -192,7 +195,7 @@ def Matriz_Resumen_Cargo_Pais(request, cargo):
     else:
        id = 0
 
-    context = {'cargo': cargo, 'capacidades':Capacidades, 'Data': output, 'Pais':pais, 'Individuos': individuos_, 'list': lista}
+    context = {'cargo': cargo, 'capacidades':Capacidades, 'Data': output, 'Pais':pais, 'Individuos': individuos_, 'list': lista, 'principales': data_random}
     return render(request, 'app1/Matriz_Resumen_Cargo_Pais.html', context)
 
 

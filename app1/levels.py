@@ -1,5 +1,5 @@
 import random
-
+import json
 
 def graph_3(ideal, n):
     competencias_principales = []
@@ -53,3 +53,20 @@ def graph(lista):
         Suma += cargo[1] + cargo[2] + cargo[3]
 
     return round(Fundamental*100/Suma), round(Regular*100/Suma), round(Profesional*100/Suma)
+def random_graph_radar(competencias):
+    n = len(competencias)
+    puntajes = [ random.randint(0,100) for x in range(n)]
+    fundamental = [ random.randint(0,30) for x in range(n)]
+    regular = [ random.randint(30,50) for x in range(n)]
+    profesional = [ random.randint(60,95) for x in range(n)]
+    output = json.dumps([
+        {
+        'competencias':competencias,
+        'real':puntajes,
+        'fundamental': fundamental,
+        'regular': regular,
+        'profesional':profesional
+        }
+        ],ensure_ascii=False)
+    return output
+    
