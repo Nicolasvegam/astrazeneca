@@ -5,27 +5,21 @@ async function getData(){
     let obj = JSON.parse(str);
     var datos = obj
     var id = await document.getElementById("id").value
-    console.log("id usuario:",id)
+    //console.log("id usuario:",id)
     var cargo = await document.getElementById("cargo").value
-    console.log("cargo:",cargo)
+    //console.log("cargo:",cargo)
     var capacidad = await document.getElementById("capacidad").value
-    console.log("capacidad:",capacidad)
+    //console.log("capacidad:",capacidad)
     //------ Calculo de labels y cada data ------
     //------Labels-----
     var comportamientos = datos.filter(d => d.nombre == capacidad)[0].comportamientos[0].list
-    console.log(comportamientos)
     //-------Data------
     var fundamental = datos.filter(d => d.nombre == capacidad && d.nivel == 'Fundamental')[0].comportamientos[0].scores
-    console.log(fundamental)
-    var regular = datos.filter(d => d.nombre == capacidad && d.nivel == 'Regular')[0].comportamientos[0].scores
-    console.log(regular)
+    var regular = datos.filter(d => d.nombre == capacidad && d.nivel == 'Regular')[0].comportamientos[0].scores 
     var profesional = datos.filter(d => d.nombre == capacidad && d.nivel == 'Profesional')[0].comportamientos[0].scores
-    console.log(profesional)
     var real = datos.filter(d => d.nombre == capacidad  && d.id== id )[0].comportamientos[0].scores
-    console.log(real)
     // ticks en dos lineas
     var comportamientos_dos = comportamientos.map(comp => [comp.substring(0,Math.floor(comp.length/2)),comp.substring(Math.floor(comp.length/2),comp.length)])
-    console.log(comportamientos_dos)
     //----CALCULO DE CATEGORÍA------
     var categoria = 'Fundamental'
     var score_obtenido = real.reduce((a,b) => a+b, 0)
@@ -40,7 +34,7 @@ async function getData(){
     else {
         categoria='Profesional'
     }
-    console.log('CATEGORIA', categoria, [score_obtenido, umbral_regular, umbral_profesional])
+
     return {'labels':comportamientos_dos, 'data1': fundamental, 'data2': regular, 'data3':profesional, 'data4': real, 'categoria':categoria}
 }
 getData().then(data => {

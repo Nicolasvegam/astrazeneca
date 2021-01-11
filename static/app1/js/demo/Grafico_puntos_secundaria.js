@@ -1,35 +1,31 @@
 // Se obtiene id usuario y datos para filtro especifico
 async function getData(){
-    // var stre = 'It iS a 5r&e@@t Day.'
-    // var array = stre.split(" ");
-    // console.log(stre.substring(0,Math.floor(stre.length/2)));
-    // console.log(stre.substring(Math.floor(stre.length/2),stre.length))
+
     var appData = await document.getElementById("data").value;
     let str = JSON.parse('"' + appData + '"');   // decoded string here
     let obj = JSON.parse(str);
     var datos = obj
     var cargo = await document.getElementById("cargo").value
-    console.log("cargo:",cargo)
     var capacidad = await document.getElementById("capacidad").value
-    console.log("capacidad:",capacidad)
+    
     //------ Calculo de labels y cada data ------
     //------Labels-----
     var comportamientos = datos.filter(d => d.nombre == capacidad)[0].comportamientos[0].list
-    console.log(comportamientos)
+    
     // Ticks en dos lineas
     var comportamientos_dos = comportamientos.map(comp => [comp.substring(0,Math.floor(comp.length/2)),comp.substring(Math.floor(comp.length/2),comp.length)])
-    console.log(comportamientos_dos)
+   
     //-------Data------
     var fundamental = datos.filter(d => d.nombre == capacidad && d.nivel == 'Fundamental')[0].comportamientos[0].scores
-    console.log(fundamental)
+    
     var regular = datos.filter(d => d.nombre == capacidad && d.nivel == 'Regular')[0].comportamientos[0].scores
-    console.log(regular)
+    
     var profesional = datos.filter(d => d.nombre == capacidad && d.nivel == 'Profesional')[0].comportamientos[0].scores
-    console.log(profesional)
+   
     var real = datos.filter(d => d.nombre == capacidad  && d.id!= 0 )
-    //console.log(real)
+    
     var scores_list = real.map(individuo => individuo.comportamientos[0].scores) // [[1,3,3],[1,2,2],[1,3,4]]
-    console.log(scores_list)
+    
     var scores_acum = []
     for (var i = 0; i < comportamientos.length; i++) {
         scores_acum.push(0);
@@ -38,7 +34,7 @@ async function getData(){
         }
     }
     var scores = scores_acum.map(score => score/ scores_list.length) //Se divide en numero de individuos
-    console.log('scores',scores)
+    
     //----CALCULO DE CATEGORÍA------
     var categoria = 'Fundamental'
     var score_obtenido = scores.reduce((a,b) => a+b, 0)
@@ -53,7 +49,7 @@ async function getData(){
     else {
         categoria='Profesional'
     }
-    console.log('CATEGORIA', categoria, [score_obtenido, umbral_regular, umbral_profesional])
+   
     return {'labels':comportamientos_dos, 'data1': fundamental, 'data2': regular, 'data3':profesional, 'data4': scores, 'categoria': categoria}
 }
 

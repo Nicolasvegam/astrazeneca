@@ -11,9 +11,7 @@ def index_navbar():
     cargos = [ 'FLSM', 'AMP', 'KAM']
     navbar = {'FLSM':[],'AMP':[],'KAM':[]}
     for cargo in cargos:
-        print(cargo)
-        principales = list(set([x['padre'] for x in data if (x['role'] == cargo)]))
-        print(principales)
+        principales = list(set([x['padre'] for x in data if (x['role'] == cargo)]))     
         aux = []
         for principal in principales:
             index = {}
@@ -21,9 +19,9 @@ def index_navbar():
             index['nombre']= principal
             index['list']= secundarias
             navbar[cargo].append(index)
-        #print(aux)
+       
     return navbar
-print(index_navbar())
+
 #Revisar situacion de simbolos / en medio de los nombres
 Capacidades = index_navbar()
 def individuos_por_cargo():
@@ -31,7 +29,6 @@ def individuos_por_cargo():
     FLSM = list(set([x['id'] for x in data if (x['role'] == 'FLSM' and x['id']!= 0)]))
     AMP = list(set([x['id'] for x in data if (x['role'] == 'AMP' and x['id']!= 0)]))
     KAM = list(set([x['id'] for x in data if (x['role'] == 'KAM' and x['id']!= 0)]))
-    #print(FLSM, AMP,KAM)
     return {'FLSM': FLSM, 'AMP': AMP, 'KAM':KAM}
 
 individuos = individuos_por_cargo()
@@ -95,8 +92,7 @@ def Matriz_Competencia_Principal_Individual(request, capacidad,cargo):
      #POST id
     if request.method == "POST":
         id = request.POST['drop1']
-        print("ID usuario")
-        print(id)
+
     else:
        id = 0
     context = {'capacidad':capacidad,'cargo':cargo,'capacidades':Capacidades,'Data': output, 'id':id, 'Individuos': individuos_,'secundarias':secundarias }
@@ -110,8 +106,7 @@ def Matriz_Competencia_Principal_Pais(request, capacidad,cargo):
      #POST id
     if request.method == "POST":
         pais = request.POST['drop1']
-        print("Pais")
-        print(pais)
+
     else:
        pais = 'Argentina'
     context = {'capacidad':capacidad,'cargo':cargo,'capacidades':Capacidades,'Data': output, 'Pais':pais, 'Individuos':individuos_,'secundarias':secundarias }
@@ -132,8 +127,7 @@ def Matriz_Competencia_Secundaria_Individual(request, capacidad,cargo): #POST id
     comportamientos = [x['comportamientos'][0]['list'] for x in data if (x['nombre'] == capacidad and x['id']== 0 and x['nivel']== 'Fundamental')]
     if request.method == "POST":
         id = request.POST['drop1']
-        print("ID usuario")
-        print(id)
+
     else:
        id = 0
 
@@ -146,8 +140,7 @@ def Matriz_Competencia_Secundaria_Pais(request, capacidad,cargo): #POST id
     comportamientos = [x['comportamientos'][0]['list'] for x in data if (x['nombre'] == capacidad and x['id']== 0 and x['nivel']== 'Fundamental')]
     if request.method == "POST":
         pais = request.POST['drop1']
-        print("Pais")
-        print(pais)
+
     else:
        pais = 0
 
@@ -161,7 +154,6 @@ def Matriz_Resumen_Cargo(request, cargo):
     individuos_ = [str(x)for x in individuos[cargo] ]
     lista = [x['nombre'] for x in Capacidades[cargo]]
     data_random = random_graph_radar(lista)
-    print(data_random)
     context = {'cargo': cargo, 'capacidades':Capacidades, 'Data': output, 'Individuos': individuos_, 'list': lista, 'principales': data_random}
     return render(request, 'app1/Matriz_Resumen_Cargo.html', context)
 
@@ -174,8 +166,7 @@ def Matriz_Resumen_Cargo_Individual(request, cargo):
     #POST id
     if request.method == "POST":
         id = request.POST['drop1']
-        print("ID usuario")
-        print(id)
+
     else:
        id = 0
 
@@ -191,7 +182,7 @@ def Matriz_Resumen_Cargo_Pais(request, cargo):
     #POST id
     if request.method == "POST":
         pais = request.POST['drop1']
-        print(pais)
+
     else:
        id = 0
 

@@ -6,7 +6,7 @@ async function getData3(){
   let str = JSON.parse('"' + appData + '"');   // decoded string here
   let obj = JSON.parse(str);
   var datos = obj
-  console.log(datos)
+  //console.log(datos)
   return datos
 }
 

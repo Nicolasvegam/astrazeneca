@@ -14,11 +14,10 @@ async function getData(){
     var datos = obj
     var principal = await document.getElementById("capacidad").value;
     var cargo = await document.getElementById("cargo").value;
-    console.log("Capacidad:", principal)
-    //console.log("Cargo:", cargo)
+
     //obtengo lista de competencias secundarias de la competencia principal
     var capacidades_secundarias = datos.filter(d => d.padre == principal && d.nivel == 'Fundamental' && d.id== 0 && d.role == cargo).map(capacidad => capacidad.nombre) //Filtro basico y 0 es para evitar duplicados
-    console.log(capacidades_secundarias)
+
     //Para cada competencia secundaria
     var scores_fundamental = []
     var scores_regular = []
@@ -31,14 +30,14 @@ async function getData(){
         //Obtengo puntaje de cada competencia secundaria a partir de sus compartamientos (suma)
         var fundamental = datos.filter(d => d.nombre == capacidad && d.nivel == 'Fundamental')[0].comportamientos[0].scores.reduce((a,b) => a+b, 0)
         scores_fundamental.push(fundamental)
-        console.log(fundamental)
+ 
         var regular = datos.filter(d => d.nombre == capacidad && d.nivel == 'Regular')[0].comportamientos[0].scores.reduce((a,b) => a+b, 0)
         scores_regular.push(regular)
         var profesional = datos.filter(d => d.nombre == capacidad && d.nivel == 'Profesional')[0].comportamientos[0].scores.reduce((a,b) => a+b, 0)
         scores_profesional.push(profesional)
         var real = datos.filter(d => d.nombre == capacidad  && d.id!= 0 )
         var scores_list = real.map(individuo => ( individuo.comportamientos[0].scores)) // [[1,3,3],[1,2,2],[1,3,4]]
-        console.log(scores_list)
+
         var scores_acum = []
         for (var i = 0; i < scores_list[0].length; i++) {
             scores_acum.push(0);
@@ -46,7 +45,7 @@ async function getData(){
                 scores_acum[i]+= scores_list[x][i]
             }
         }
-        console.log(scores_acum)
+     
         var scores = scores_acum.map(score => score/ scores_list.length).reduce((a,b) => a+b, 0) //Se divide en numero de individuos y despues se suman
         scores_real.push(scores)
     })
@@ -64,7 +63,7 @@ async function getData(){
     else {
         categoria='Profesional'
     }
-    console.log('CATEGORIA', categoria, [score_obtenido, umbral_regular, umbral_profesional])
+
     
      //Adapto datos a formato del grafico
     capacidades_secundarias.unshift('Experticia')
