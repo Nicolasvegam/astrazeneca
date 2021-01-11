@@ -1,0 +1,166 @@
+
+<!-- <body id="page-top"> -->
+
+       <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+
+
+                <div class="sidebar-brand-icon">
+                    <img src="https://www.astrazeneca.com/etc/designs/az/img/favicons/xicon-apple-touch-icon-152x152.png.pagespeed.ic.8LepaaUwyq.png" alt="" style="width: 90%;">
+                </div>
+                <div class="sidebar-brand-text mx-3">AstraZeneca <sup></sup></div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'index2' %}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Información Cono Sur</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'argentina' %}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Overall Argentina</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'chile' %}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Overall Chile</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'uruguay' %}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Overall Uruguay</span></a>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'MercadoExterno' %}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Mercado Laboral Externo</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                FLSM
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span> Matriz de competencias</span>
+                </a>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        {% for capacidad_sec in capacidades.FLSM %}
+                        <a class="collapse-header" href="{% url 'Matriz_Competencia_Principal' capacidad=capacidad_sec.nombre cargo='FLSM'%}" >{{capacidad_sec.nombre|truncatechars:25 }} </a>
+                            {% for item in capacidad_sec.list %}
+                                <a class="collapse-item" href="{% url 'Matriz_Competencia_Secundaria' capacidad=item cargo='FLSM'%}">  {{ item|truncatechars:19 }} </a>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'Matriz_Resumen_Cargo' cargo='FLSM'%}">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span> Resultados Generales</span></a>
+            </li>
+
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    AMP
+                </div>
+
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages2"
+                        aria-expanded="true" aria-controls="collapsePages2">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span> Matriz de Competencias </span>
+                    </a>
+                    <div id="collapsePages2" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            {% for capacidad_sec in capacidades.AMP %}
+
+                            <a class="collapse-header" href="{% url 'Matriz_Competencia_Principal' capacidad=capacidad_sec.nombre cargo='AMP'%}">{{capacidad_sec.nombre|truncatechars:25 }}</a>
+                                {% for item in capacidad_sec.list %}
+                                    <a class="collapse-item" href="{% url 'Matriz_Competencia_Secundaria' capacidad=item cargo='AMP'%}" > {{item|truncatechars:19}} </a>
+
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Nav Item - Charts -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'Matriz_Resumen_Cargo' cargo='AMP'%}">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span> Resultados Generales</span></a>
+                </li>
+
+
+                <!-- Divider -->
+                <hr class="sidebar-divider">
+
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    KAM
+                </div>
+
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages3"
+                        aria-expanded="true" aria-controls="collapsePages3">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span> Matriz de Competencias</span>
+                    </a>
+                    <div id="collapsePages3" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            {% for capacidad_sec in capacidades.KAM %}
+                            <a class="collapse-header" href="{% url 'Matriz_Competencia_Principal' capacidad=capacidad_sec.nombre cargo='KAM'%}">{{capacidad_sec.nombre|truncatechars:25 }}</a>
+                                {% for item in capacidad_sec.list %}
+                                    <a class="collapse-item" href="{% url 'Matriz_Competencia_Secundaria' capacidad=item cargo='KAM'%}" >  {{ item|truncatechars:19 }} </a>
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Nav Item - Charts -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'Matriz_Resumen_Cargo' cargo='KAM' %}">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span> Resultados Generales</span></a>
+                </li>
+
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+            <!-- Sidebar Message -->
+
+
+        </ul>
+        <!-- End of Sidebar -->
+    <!-- </body>   -->
