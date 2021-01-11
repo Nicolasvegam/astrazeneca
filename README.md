@@ -17,7 +17,7 @@ tenemos las funciones que leen automáticamente las matrices para enviar esa inf
 Para correr la aplicación debes tener instalado django (y Python versión 3.6 o superior) y introducir en la consola el siguiente comando:
 
 ```
-* python manage.py runserver
+python manage.py runserver
 ```
 
 ó
@@ -25,3 +25,5 @@ Para correr la aplicación debes tener instalado django (y Python versión 3.6 o
 ```
 python3 manage.py runserver
 ```
+
+Para correr los utils donde se encuentra el scrapper de ofertas laborales debes tener instalado selenium + el driver de chrome (u otro navegador) para que la librería pueda acceder y ser autorizada para concretar sus funciones.
