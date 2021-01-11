@@ -27,3 +27,13 @@ python3 manage.py runserver
 ```
 
 Para correr los utils donde se encuentra el scrapper de ofertas laborales debes tener instalado selenium + el driver de chrome (u otro navegador) para que la librería pueda acceder y ser autorizada para concretar sus funciones.
+
+```
+pip install selenium
+```
+
+ó
+
+```
+pip3 install selenium
+```
