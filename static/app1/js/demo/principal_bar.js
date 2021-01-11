@@ -37,4 +37,10 @@ async function drawChart() {
   var chart = new google.charts.Bar(document.getElementById('bar_principal'));
 
   chart.draw(data, google.charts.Bar.convertOptions(options));
+  window.onresize = doALoadOfStuff;
+
+    function doALoadOfStuff() {
+        //do a load of stuff
+        chart.draw(data, options);
+    }
 }

@@ -33,6 +33,7 @@ async function drawVisualization() {
             vAxis: {title: "Competencias"}, isStacked: 'percent',
             hAxis: {title: "% de logro"}}
       );
+      
 }
 
 google.load("visualization", "1", {packages:["corechart"]});
