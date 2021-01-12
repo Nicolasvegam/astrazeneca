@@ -14,7 +14,7 @@ tenemos las funciones que leen automáticamente las matrices para enviar esa inf
 
 * levels.py: funciones de apoyo para calcular toda la data que aparece en las vista generales.
 
-Para correr la aplicación debes tener instalado django (y Python versión 3.6 o superior) y introducir en la consola el siguiente comando:
+Para correr la aplicación debes tener instalado Python versión 3.6 o superior, django y la libreria openpyxl. A continuación se debe introducir en la consola el siguiente comando:
 
 ```
 python manage.py runserver
